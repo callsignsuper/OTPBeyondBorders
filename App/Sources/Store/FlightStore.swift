@@ -10,12 +10,49 @@ final class FlightStore {
     var flights: [Flight] = []
     var delayLogs: [String: DelayLog] = [:]
 
+    init() {
+        #if DEBUG
+        if ProcessInfo.processInfo.environment["OTPBB_SEED_DEMO_FLIGHT"] != "0" {
+            seedDemoFlight()
+        }
+        #endif
+    }
+
     var nextFlight: Flight? {
         flights
             .filter { $0.stdUTC > Date() }
             .sorted { $0.stdUTC < $1.stdUTC }
             .first
     }
+
+    #if DEBUG
+    private func seedDemoFlight() {
+        // Synthetic flight for previews and simulator runs.
+        let now = Date()
+        flights = [
+            Flight(
+                flightNumber: "EY21",
+                sectorCode:   "21A",
+                origin:       "AUH",
+                destination:  "YYZ",
+                reportingUTC: now.addingTimeInterval(-20 * 60),
+                stdUTC:       now.addingTimeInterval(85 * 60),
+                staUTC:       now.addingTimeInterval(13 * 3600),
+                category:     .a380
+            ),
+            Flight(
+                flightNumber: "EY11",
+                sectorCode:   "11A",
+                origin:       "AUH",
+                destination:  "JFK",
+                reportingUTC: now.addingTimeInterval(28 * 3600),
+                stdUTC:       now.addingTimeInterval(29 * 3600 + 55 * 60),
+                staUTC:       now.addingTimeInterval(42 * 3600),
+                category:     .a380
+            )
+        ]
+    }
+    #endif
 
     func upsert(_ flight: Flight) {
         if let idx = flights.firstIndex(where: { $0.id == flight.id }) {

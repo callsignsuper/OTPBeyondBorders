@@ -9,16 +9,22 @@ struct FlightListView: View {
 
     var body: some View {
         NavigationStack {
-            List {
-                if store.flights.isEmpty {
-                    EmptyFlightsHint()
-                } else {
-                    ForEach(store.flights.sorted(by: { $0.stdUTC < $1.stdUTC })) { flight in
-                        NavigationLink(value: flight.id) {
-                            FlightRow(flight: flight)
+            ZStack {
+                Color.otpCream.ignoresSafeArea()
+                List {
+                    if store.flights.isEmpty {
+                        EmptyFlightsHint()
+                            .listRowBackground(Color.clear)
+                    } else {
+                        ForEach(store.flights.sorted(by: { $0.stdUTC < $1.stdUTC })) { flight in
+                            NavigationLink(value: flight.id) {
+                                FlightRow(flight: flight)
+                            }
+                            .listRowBackground(Color.white)
                         }
                     }
                 }
+                .scrollContentBackground(.hidden)
             }
             .navigationTitle("Flights")
             .navigationDestination(for: String.self) { id in

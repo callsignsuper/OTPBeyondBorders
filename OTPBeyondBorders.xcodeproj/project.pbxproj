@@ -28,6 +28,7 @@
 		A96F2C7E10705E69DB52E9F5 /* OTPWatchRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A519E193A75F49470D37411 /* OTPWatchRootView.swift */; };
 		B07BBB59AC966C63626FC33A /* OTPBeyondBordersApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086EEA176253E65507D20EF6 /* OTPBeyondBordersApp.swift */; };
 		B5D88B051B1910C03705725A /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74C5AA207058996D5D0D5BF5 /* SwiftUI.framework */; };
+		BAB882773E2E7E10BC4EE2DE /* OnboardingComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F44B0BCA4833E0B7B95885F /* OnboardingComponents.swift */; };
 		BC1802542AA7150BB2741698 /* OTPWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 73CAD43A4D1E107FEF4E3C38 /* OTPWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C38950729F36614BE310CA34 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A56C48FC7D05D35837BC5B8D /* WidgetKit.framework */; };
 		C6DFC996557839BF8BC9D4B6 /* OTPWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCBA927D93B2C01B5F9D36D /* OTPWidgetEntryView.swift */; };
@@ -71,6 +72,7 @@
 		73CAD43A4D1E107FEF4E3C38 /* OTPWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = OTPWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		74C5AA207058996D5D0D5BF5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		7707BCD62F68670440A88D00 /* FlightDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailView.swift; sourceTree = "<group>"; };
+		7F44B0BCA4833E0B7B95885F /* OnboardingComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingComponents.swift; sourceTree = "<group>"; };
 		830C30A3602F2D9451CE3593 /* LogDelaySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDelaySheet.swift; sourceTree = "<group>"; };
 		84440E60C71BE1F07D7A3BB5 /* TimelineStripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineStripView.swift; sourceTree = "<group>"; };
 		87847D364C1A048E9823D117 /* OTPWidgetProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPWidgetProvider.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 		126089148D528C1E5BFD5AC7 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				7F44B0BCA4833E0B7B95885F /* OnboardingComponents.swift */,
 				098EAF7FF5FFD383E6AB495B /* OnboardingFlow.swift */,
 				5A74873D573AA15BAFB3ED20 /* RoleCarouselView.swift */,
 			);
@@ -428,6 +431,7 @@
 				2C7D2F1BCC594861EB4E7B39 /* FlightStore.swift in Sources */,
 				61CB7318C54BDD736DAE023C /* LogDelaySheet.swift in Sources */,
 				B07BBB59AC966C63626FC33A /* OTPBeyondBordersApp.swift in Sources */,
+				BAB882773E2E7E10BC4EE2DE /* OnboardingComponents.swift in Sources */,
 				9E06C6C4BF58FCAF131FD3D5 /* OnboardingFlow.swift in Sources */,
 				2CCF7B39A76107369A571DDD /* RoleCarouselView.swift in Sources */,
 				1C65949F8ED0AED4F2BAE6E9 /* RoleChipDropdown.swift in Sources */,
