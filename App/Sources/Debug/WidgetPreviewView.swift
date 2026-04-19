@@ -2,51 +2,54 @@
 import SwiftUI
 import OTPKit
 
-/// Debug-only screen that renders the rectangular lock-screen widget at its native size,
-/// against a dark backdrop that approximates a lock-screen context.
+/// Debug-only screen that renders every supported widget family at its native size, against
+/// a mock home-screen or lock-screen backdrop, using either synthetic or real shared-storage data.
 ///
-/// Lock-screen widget customization on a running Simulator is gated behind Face ID auth and
-/// is unreliable to drive via automation — this preview gives the team a deterministic way
-/// to inspect the widget's rendering in key states without touching the device chrome.
+/// The iOS simulator's widget gallery is historically flaky to drive via automation — this
+/// preview gives the team a deterministic way to inspect the widget's rendering in every
+/// supported family and state without touching the device chrome.
 struct WidgetPreviewView: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var selected: PreviewState = .active
+    @State private var selectedState: PreviewState = .sharedStorage
+    @State private var selectedFamily: Family = .systemMedium
 
     enum PreviewState: String, CaseIterable, Identifiable {
-        case active     = "In window"
-        case approach   = "T−5"
-        case delayed    = "Delay prompt"
-        case placeholder = "Placeholder"
+        case sharedStorage = "Real flight"
+        case inWindow      = "In window"
+        case approach      = "T−5"
+        case delayed       = "Delay prompt"
+        case placeholder   = "Placeholder"
+        var id: String { rawValue }
+    }
+
+    enum Family: String, CaseIterable, Identifiable {
+        case accessoryRectangular = "Lock"
+        case systemSmall          = "Small"
+        case systemMedium         = "Medium"
         var id: String { rawValue }
     }
 
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 20) {
-                    Picker("State", selection: $selected) {
+                VStack(spacing: 16) {
+                    Picker("Data", selection: $selectedState) {
                         ForEach(PreviewState.allCases) { s in
                             Text(s.rawValue).tag(s)
                         }
                     }
                     .pickerStyle(.segmented)
 
-                    LockScreenFrame {
-                        OTPRectangularContent(snapshot: snapshot)
-                            .padding(.horizontal, 14).padding(.vertical, 10)
+                    Picker("Family", selection: $selectedFamily) {
+                        ForEach(Family.allCases) { f in
+                            Text(f.rawValue).tag(f)
+                        }
                     }
+                    .pickerStyle(.segmented)
 
-                    VStack(alignment: .leading, spacing: 6) {
-                        Text("Render metadata")
-                            .font(.footnote.weight(.semibold))
-                            .foregroundStyle(.secondary)
-                        DetailRow(label: "Family",  value: ".accessoryRectangular")
-                        DetailRow(label: "Phase",   value: snapshot.phaseName)
-                        DetailRow(label: "Owner",   value: snapshot.ownerRoles.map(\.displayName).joined(separator: ", "))
-                        DetailRow(label: "Deep link", value: "otpbb://next")
-                    }
-                    .padding(14)
-                    .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
+                    widgetFrame
+
+                    metadataPanel
                 }
                 .padding()
             }
@@ -60,10 +63,68 @@ struct WidgetPreviewView: View {
         }
     }
 
+    @ViewBuilder
+    private var widgetFrame: some View {
+        switch selectedFamily {
+        case .accessoryRectangular:
+            LockScreenFrame {
+                OTPRectangularContent(snapshot: snapshot)
+                    .padding(.horizontal, 14).padding(.vertical, 10)
+            }
+        case .systemSmall:
+            HomeScreenFrame(size: CGSize(width: 170, height: 170)) {
+                OTPSmallContent(snapshot: snapshot)
+            }
+        case .systemMedium:
+            HomeScreenFrame(size: CGSize(width: 360, height: 170)) {
+                OTPMediumContent(snapshot: snapshot)
+            }
+        }
+    }
+
+    private var metadataPanel: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text("Render metadata")
+                .font(.footnote.weight(.semibold))
+                .foregroundStyle(.secondary)
+            DetailRow(label: "Family",      value: familyIdentifier)
+            DetailRow(label: "Flight",      value: "\(snapshot.flightNumber) \(snapshot.routeLabel)")
+            DetailRow(label: "Aircraft",    value: snapshot.aircraftLabel)
+            DetailRow(label: "Phase",       value: snapshot.phaseName)
+            DetailRow(label: "Next",        value: snapshot.nextMilestoneLabel)
+            DetailRow(label: "Owner",       value: snapshot.ownerRoles.map(\.displayName).joined(separator: ", "))
+            DetailRow(label: "Progress",    value: "\(Int(snapshot.progressPct * 100))%")
+            DetailRow(label: "Deep link",   value: "otpbb://next")
+            DetailRow(label: "Source",      value: snapshotSource)
+        }
+        .padding(14)
+        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
+    }
+
+    private var familyIdentifier: String {
+        switch selectedFamily {
+        case .accessoryRectangular: return ".accessoryRectangular"
+        case .systemSmall:          return ".systemSmall"
+        case .systemMedium:         return ".systemMedium"
+        }
+    }
+
+    private var snapshotSource: String {
+        switch selectedState {
+        case .sharedStorage: return "App Group / SharedFlightStorage"
+        default:             return "synthetic fixture"
+        }
+    }
+
     private var snapshot: OTPWidgetSnapshot {
         let now = Date()
-        switch selected {
-        case .active:
+        switch selectedState {
+        case .sharedStorage:
+            if let flight = SharedFlightStorage().nextFlight(now: now) {
+                return .build(for: flight, at: now)
+            }
+            return .placeholder
+        case .inWindow:
             let flight = Flight(
                 flightNumber: "EY21", sectorCode: "21A",
                 origin: "AUH", destination: "YYZ",
@@ -73,7 +134,6 @@ struct WidgetPreviewView: View {
             )
             return .build(for: flight, at: now)
         case .approach:
-            // At T-5:30: doors_closed target is 30s away, tow_truck same.
             let flight = Flight(
                 flightNumber: "EY21", sectorCode: "21A",
                 origin: "AUH", destination: "YYZ",
@@ -97,9 +157,7 @@ struct WidgetPreviewView: View {
     }
 }
 
-/// Visual approximation of a lock-screen: dark gradient with a white-tinted widget container
-/// at accessoryRectangular dimensions (~172×76pt on @3x; we use 320×76pt scaled up so it is
-/// readable on the phone sim without pretending to be a real lock screen).
+/// Visual approximation of a lock-screen with a rectangular-accessory-sized slot.
 private struct LockScreenFrame<Content: View>: View {
     @ViewBuilder let content: () -> Content
 
@@ -141,6 +199,45 @@ private struct LockScreenFrame<Content: View>: View {
     }
 }
 
+/// Home-screen-style widget container at a given size. Matches the iOS home screen widget
+/// corner radius + subtle shadow so the debug preview reads like a real home-screen tile.
+private struct HomeScreenFrame<Content: View>: View {
+    let size: CGSize
+    @ViewBuilder let content: () -> Content
+
+    var body: some View {
+        ZStack {
+            // Mock wallpaper
+            LinearGradient(
+                colors: [
+                    Color(red: 0.36, green: 0.52, blue: 0.78),
+                    Color(red: 0.21, green: 0.28, blue: 0.42)
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+
+            content()
+                .frame(width: size.width, height: size.height)
+                .background(
+                    LinearGradient(
+                        colors: [Color.otpCream, Color.otpCream.opacity(0.85)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    in: RoundedRectangle(cornerRadius: 22, style: .continuous)
+                )
+                .shadow(color: .black.opacity(0.2), radius: 14, y: 6)
+        }
+        .frame(height: 260)
+        .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 28, style: .continuous)
+                .strokeBorder(.gray.opacity(0.3))
+        )
+    }
+}
+
 private struct DetailRow: View {
     let label: String
     let value: String
@@ -148,7 +245,7 @@ private struct DetailRow: View {
         HStack {
             Text(label).foregroundStyle(.secondary)
             Spacer()
-            Text(value).font(.footnote.monospaced())
+            Text(value).font(.footnote.monospaced()).multilineTextAlignment(.trailing)
         }
         .font(.footnote)
     }

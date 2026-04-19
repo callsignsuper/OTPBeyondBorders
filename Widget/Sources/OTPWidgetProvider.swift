@@ -8,37 +8,43 @@ struct OTPWidgetEntry: TimelineEntry {
 }
 
 struct OTPWidgetProvider: TimelineProvider {
+    private let storage = SharedFlightStorage()
+
     func placeholder(in context: Context) -> OTPWidgetEntry {
         OTPWidgetEntry(date: Date(), snapshot: .placeholder)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (OTPWidgetEntry) -> Void) {
-        completion(OTPWidgetEntry(date: Date(), snapshot: demoFlightSnapshot(at: Date())))
+        completion(OTPWidgetEntry(date: Date(), snapshot: snapshot(at: Date())))
     }
 
     func getTimeline(in context: Context, completion: @escaping (WidgetKit.Timeline<OTPWidgetEntry>) -> Void) {
         let now = Date()
-        // One entry per minute for the next 90 minutes.
+        // One entry per minute for the next 90 minutes. Ample granularity; WidgetKit will request
+        // more when the window runs out.
         let entries: [OTPWidgetEntry] = (0..<90).map { offset in
             let t = now.addingTimeInterval(Double(offset) * 60)
-            return OTPWidgetEntry(date: t, snapshot: demoFlightSnapshot(at: t))
+            return OTPWidgetEntry(date: t, snapshot: snapshot(at: t))
         }
         completion(WidgetKit.Timeline(entries: entries, policy: .atEnd))
     }
 
-    private func demoFlightSnapshot(at date: Date) -> OTPWidgetSnapshot {
-        // Until FlightStore sharing via App Groups is wired up, the widget renders a stable
-        // demo flight so the lock-screen preview is meaningful. Replace with real store lookup
-        // once the App Group entitlement lands.
-        let flight = Flight(
+    /// Prefer the real next flight from the App Group store. Falls back to a stable demo snapshot
+    /// whenever no flight is available (first run, missing entitlement, etc.) so the widget always
+    /// has something legible to render.
+    private func snapshot(at date: Date) -> OTPWidgetSnapshot {
+        if let flight = storage.nextFlight(now: date) {
+            return OTPWidgetSnapshot.build(for: flight, at: date)
+        }
+        let demo = Flight(
             flightNumber: "EY21",
-            sectorCode:   "21A",
-            origin:       "AUH",
-            destination:  "YYZ",
+            sectorCode: "21A",
+            origin: "AUH",
+            destination: "YYZ",
             reportingUTC: date.addingTimeInterval(-30 * 60),
-            stdUTC:       date.addingTimeInterval(75 * 60),
-            category:     .a380
+            stdUTC: date.addingTimeInterval(75 * 60),
+            category: .a380
         )
-        return OTPWidgetSnapshot.build(for: flight, at: date)
+        return OTPWidgetSnapshot.build(for: demo, at: date)
     }
 }

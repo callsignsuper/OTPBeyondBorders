@@ -7,15 +7,25 @@ import OTPKit
 @MainActor
 @Observable
 final class FlightStore {
-    var flights: [Flight] = []
+    var flights: [Flight] = [] {
+        didSet { sharedStorage.write(flights) }
+    }
     var delayLogs: [String: DelayLog] = [:]
+    private let sharedStorage: SharedFlightStorage
 
-    init() {
-        #if DEBUG
-        if ProcessInfo.processInfo.environment["OTPBB_SEED_DEMO_FLIGHT"] != "0" {
-            seedDemoFlight()
+    init(sharedStorage: SharedFlightStorage = SharedFlightStorage()) {
+        self.sharedStorage = sharedStorage
+        // Prefer real flights from shared storage; fall back to demo in DEBUG.
+        let existing = sharedStorage.read()
+        if !existing.isEmpty {
+            self.flights = existing
+        } else {
+            #if DEBUG
+            if ProcessInfo.processInfo.environment["OTPBB_SEED_DEMO_FLIGHT"] != "0" {
+                seedDemoFlight()
+            }
+            #endif
         }
-        #endif
     }
 
     var nextFlight: Flight? {

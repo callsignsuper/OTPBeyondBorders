@@ -87,30 +87,42 @@ Track these as they come online.
 
 ### 5.1 In-app widget preview (implemented)
 
-The debug iOS app exposes a **Widget Preview** screen from the Flight list's top-right toolbar (rectangle-on-rectangle icon, DEBUG builds only). It renders `OTPRectangularContent` — the same SwiftUI view the lock-screen widget uses — against a mock lock-screen backdrop, at the widget's native rectangular size, and exposes a segmented picker to walk through four states:
+The debug iOS app exposes a **Widget Preview** screen from the Flight list's top-right toolbar (rectangle-on-rectangle icon, DEBUG builds only). It renders every supported widget family — `.accessoryRectangular` (lock screen), `.systemSmall`, `.systemMedium` (home screen) — using the exact same SwiftUI views the real widget extension ships, at each family's native size, with a segmented picker to switch between five data sources:
 
-| State | What to verify |
+| Data source | What it shows |
 |---|---|
-| **In window** | Active countdown to the next milestone; progress bar tinted by the owner role. |
-| **T−5** | `00:30` countdown as Doors Closed approaches; progress bar nearly full; three owner-role colors showing. |
-| **Delay prompt** | Red "Log delay" text replaces the countdown when `now > STD` and `doors_closed` is not marked complete. |
-| **Placeholder** | Stable fallback content the widget shows while a timeline entry is being built. |
+| **Real flight** | The next future flight read from `SharedFlightStorage` via the App Group. Same data path the real widget sees. |
+| **In window** | Synthetic flight 75 min before STD, reporting 30 min ago — pre-flight-checks phase, pilot-tinted progress. |
+| **T−5** | Synthetic flight 5:30 before STD — Doors Closed ~30 s away, all three owner colors active. |
+| **Delay prompt** | Synthetic flight where `now > STD` and `doors_closed` not marked — widget swaps the countdown for red "Log delay" text. |
+| **Placeholder** | The stable fallback WidgetKit shows while a timeline entry is being built. |
 
-Render metadata (family, phase, owner, deep-link URL) is shown below the widget so regressions in the engine's phase/owner resolution are catchable without running the app.
+Render metadata (family, flight, aircraft, phase, next milestone, owner roles, progress %, deep-link URL, data source) is shown below the widget so regressions in the engine's phase/owner resolution are catchable without running the app.
 
-This preview is the **fastest** feedback loop for widget layout and content decisions — no re-install, no lock-screen auth, no waiting on WidgetKit timeline refresh.
+This preview is the **fastest** feedback loop for widget layout and content decisions — no re-install, no lock-screen auth, no waiting on WidgetKit timeline refresh, and it doubles as a smoke test for the App Group plumbing.
 
-### 5.2 Lock-screen customization (manual step)
+### 5.2 App Group + shared storage
 
-Putting the widget on an actual lock screen requires Face ID auth on the Simulator and the following flow:
+The widget extension reads flight data from an App Group container, not from the app's in-process `FlightStore`:
 
-1. Lock the simulator (`Cmd+L`).
-2. Swipe up on the lock screen to trigger Face ID.
-3. Simulator → Features → Face ID → Matching Face (`Cmd+⌥+M`).
-4. **Before dismissing the lock screen**, long-press the clock area.
-5. Tap Customize → Lock Screen → add rectangular widget → OTP Beyond Borders → OTP Countdown.
+- App Group identifier: `group.com.otpbb.shared`
+- Both `OTPBeyondBorders` and `OTPWidget` targets carry the entitlement (see `App/Resources/OTPBeyondBorders.entitlements`, `Widget/Resources/OTPWidget.entitlements`).
+- `SharedFlightStorage` (OTPKit) persists/reads `flights.json` in that container.
+- `FlightStore.flights.didSet` writes on every change; `CalendarImporter` additionally calls `WidgetCenter.shared.reloadAllTimelines()` after a refresh.
+- `OTPWidgetProvider` calls `SharedFlightStorage.nextFlight(now:)` to build each timeline entry — first future STD wins. Falls back to a stable demo snapshot if the store is empty.
 
-This flow is Face-ID-gated and unreliable via UI automation. Treat as a manual step in §6.5.
+To exercise the full data path, use the debug "calendar.badge.plus" toolbar button on the Flight list. It writes an AIMS-tagged calendar event 2 h from now into the device's default calendar via `EKEventStore`, then triggers the importer and a widget timeline reload. Apple's built-in Calendar widget can be used as an independent verification that the event landed.
+
+### 5.3 Lock-screen and home-screen placement (manual)
+
+Putting the widget on an actual lock or home screen requires navigating the iOS widget gallery, which is historically flaky to drive via automation — in iOS 26 Simulator the gallery sheet frequently renders empty after `Add Widget` before chronod finishes enumerating extensions. When this happens, close and reopen the gallery, or verify registration via the log (`chronod` emits `Reloading descriptors for reason: "host requested: SpringBoard-Homescreen"` followed by the widget's bundle ID).
+
+Manual steps:
+
+1. **Home screen**: long-press empty area → Edit → Add Widget → search "OTP Beyond Borders" → pick a family → tap to add.
+2. **Lock screen**: `Cmd+L` → `Cmd+⌥+M` (Matching Face) to auth without dismissing → long-press clock area → Customize → Lock Screen → rectangular widget → OTP Countdown.
+
+Both flows are flaky enough that the in-app preview (§5.1) is the primary verification path.
 
 ### 5.3 Planned snapshot tests (not yet wired)
 

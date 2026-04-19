@@ -1,11 +1,15 @@
 import SwiftUI
 import OTPKit
+#if canImport(WidgetKit)
+import WidgetKit
+#endif
 
 struct FlightListView: View {
     @Environment(FlightStore.self) private var store
     @Environment(\.selectedRole) private var selectedRole
     @State private var isImporting = false
     @State private var showingWidgetPreview = false
+    @State private var seedResult: String?
     @AppStorage("selectedRole") private var roleRaw = Role.pilots.rawValue
 
     var body: some View {
@@ -61,11 +65,26 @@ struct FlightListView: View {
                         Image(systemName: "rectangle.on.rectangle")
                     }
                 }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        Task { await seedTestFlight() }
+                    } label: {
+                        Image(systemName: "calendar.badge.plus")
+                    }
+                }
                 #endif
             }
             #if DEBUG
             .sheet(isPresented: $showingWidgetPreview) {
                 WidgetPreviewView()
+            }
+            .alert("Test flight", isPresented: Binding(
+                get: { seedResult != nil },
+                set: { if !$0 { seedResult = nil } }
+            )) {
+                Button("OK") { seedResult = nil }
+            } message: {
+                Text(seedResult ?? "")
             }
             #endif
         }
@@ -81,7 +100,25 @@ struct FlightListView: View {
         for flight in importer.importFlights(in: range) {
             store.upsert(flight)
         }
+        #if canImport(WidgetKit)
+        WidgetCenter.shared.reloadAllTimelines()
+        #endif
     }
+
+    #if DEBUG
+    private func seedTestFlight() async {
+        do {
+            let std = try await CalendarSeeder().seed(hoursFromNow: 2)
+            await importFlights()
+            let formatter = DateFormatter()
+            formatter.dateStyle = .none
+            formatter.timeStyle = .short
+            seedResult = "Flight EY21 seeded — STD at \(formatter.string(from: std)) local. Widget timeline refreshed."
+        } catch {
+            seedResult = "Seed failed: \(error)"
+        }
+    }
+    #endif
 }
 
 private struct FlightRow: View {

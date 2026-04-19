@@ -41,9 +41,11 @@ targets:
         TARGETED_DEVICE_FAMILY: "1,2"
         INFOPLIST_FILE: App/Resources/Info.plist
         GENERATE_INFOPLIST_FILE: NO
+        CODE_SIGN_ENTITLEMENTS: App/Resources/OTPBeyondBorders.entitlements
     dependencies:
       - package: OTPKit
       - target: OTPWidget
+      - sdk: WidgetKit.framework
 
   OTPWidget:
     type: app-extension
@@ -58,6 +60,7 @@ targets:
         INFOPLIST_FILE: Widget/Resources/Info.plist
         GENERATE_INFOPLIST_FILE: NO
         SKIP_INSTALL: YES
+        CODE_SIGN_ENTITLEMENTS: Widget/Resources/OTPWidget.entitlements
     dependencies:
       - package: OTPKit
       - sdk: WidgetKit.framework
