@@ -13,6 +13,7 @@
 		1DF1A75D096655746A60FEB8 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D8E9BDBB51DB45CAE92FA63A /* Localizable.xcstrings */; };
 		2C7D2F1BCC594861EB4E7B39 /* FlightStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6725084A46BAE214B86AFCB /* FlightStore.swift */; };
 		2CCF7B39A76107369A571DDD /* RoleCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A74873D573AA15BAFB3ED20 /* RoleCarouselView.swift */; };
+		3DD6186F294FD58E32163003 /* WidgetPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003A472F3B2CAE9514BC01AE /* WidgetPreviewView.swift */; };
 		54AD8C3A08E22C50B67F5FAA /* OTPWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87847D364C1A048E9823D117 /* OTPWidgetProvider.swift */; };
 		61CB7318C54BDD736DAE023C /* LogDelaySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830C30A3602F2D9451CE3593 /* LogDelaySheet.swift */; };
 		66FA2DF898F65B25B0B16E74 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D490F7EB437B0E6471C223E4 /* AppTheme.swift */; };
@@ -21,6 +22,7 @@
 		7305389566CA852C65165420 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A35AB49F0DB1F0D33FFFBC7 /* SettingsView.swift */; };
 		76045B6ABA9033D7359D6201 /* CalendarImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F3B5063541D3DA5C1FF637 /* CalendarImporter.swift */; };
 		7807C7DEF9193C466E99499B /* FlightDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7707BCD62F68670440A88D00 /* FlightDetailView.swift */; };
+		8B7D1788EA46A692E1E8EC64 /* OTPWidgetContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E67676AC54C2EE3D4168618 /* OTPWidgetContent.swift */; };
 		92412D8C7BC315D2CC570673 /* OTPWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35089C9DC30EB355E3C37E04 /* OTPWidget.swift */; };
 		93341A1FB00B467BDDD24CCD /* OTPKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3F8FA0285AD8F09652ABCCCC /* OTPKit */; };
 		97F5FE6F39E8B92E912D5EE8 /* OTPWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9DB29751E4BAF1BCE6921F /* OTPWidgetBundle.swift */; };
@@ -31,6 +33,7 @@
 		BAB882773E2E7E10BC4EE2DE /* OnboardingComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F44B0BCA4833E0B7B95885F /* OnboardingComponents.swift */; };
 		BC1802542AA7150BB2741698 /* OTPWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 73CAD43A4D1E107FEF4E3C38 /* OTPWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C38950729F36614BE310CA34 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A56C48FC7D05D35837BC5B8D /* WidgetKit.framework */; };
+		C4F48427BDB5F1AE65D54202 /* OTPWidgetContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E67676AC54C2EE3D4168618 /* OTPWidgetContent.swift */; };
 		C6DFC996557839BF8BC9D4B6 /* OTPWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCBA927D93B2C01B5F9D36D /* OTPWidgetEntryView.swift */; };
 		D7AB939B206A7E6B4CB4236C /* OTPKit in Frameworks */ = {isa = PBXBuildFile; productRef = E4673C8F786935F0704B846A /* OTPKit */; };
 /* End PBXBuildFile section */
@@ -60,11 +63,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		003A472F3B2CAE9514BC01AE /* WidgetPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetPreviewView.swift; sourceTree = "<group>"; };
 		086EEA176253E65507D20EF6 /* OTPBeyondBordersApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPBeyondBordersApp.swift; sourceTree = "<group>"; };
 		098EAF7FF5FFD383E6AB495B /* OnboardingFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFlow.swift; sourceTree = "<group>"; };
 		0A8FE4DA4A8C4C9870A4FC73 /* RoleChipDropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleChipDropdown.swift; sourceTree = "<group>"; };
 		35089C9DC30EB355E3C37E04 /* OTPWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPWidget.swift; sourceTree = "<group>"; };
 		3A519E193A75F49470D37411 /* OTPWatchRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPWatchRootView.swift; sourceTree = "<group>"; };
+		3E67676AC54C2EE3D4168618 /* OTPWidgetContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPWidgetContent.swift; sourceTree = "<group>"; };
 		42F3B5063541D3DA5C1FF637 /* CalendarImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarImporter.swift; sourceTree = "<group>"; };
 		4536B6DC7A053383BB85C288 /* FlightListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListView.swift; sourceTree = "<group>"; };
 		5A35AB49F0DB1F0D33FFFBC7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -128,6 +133,14 @@
 			path = Flights;
 			sourceTree = "<group>";
 		};
+		11AF463AF8D9D359F728615D /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				003A472F3B2CAE9514BC01AE /* WidgetPreviewView.swift */,
+			);
+			path = Debug;
+			sourceTree = "<group>";
+		};
 		126089148D528C1E5BFD5AC7 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				D43C9A2C26066D78B3023E27 /* Calendar */,
+				11AF463AF8D9D359F728615D /* Debug */,
 				7B3BCFBCF3CE23BE16A12359 /* Delay */,
 				0AABA5BDC74682E0537324EC /* Flights */,
 				126089148D528C1E5BFD5AC7 /* Onboarding */,
@@ -267,6 +281,7 @@
 			children = (
 				35089C9DC30EB355E3C37E04 /* OTPWidget.swift */,
 				FB9DB29751E4BAF1BCE6921F /* OTPWidgetBundle.swift */,
+				3E67676AC54C2EE3D4168618 /* OTPWidgetContent.swift */,
 				DFCBA927D93B2C01B5F9D36D /* OTPWidgetEntryView.swift */,
 				87847D364C1A048E9823D117 /* OTPWidgetProvider.swift */,
 			);
@@ -431,12 +446,14 @@
 				2C7D2F1BCC594861EB4E7B39 /* FlightStore.swift in Sources */,
 				61CB7318C54BDD736DAE023C /* LogDelaySheet.swift in Sources */,
 				B07BBB59AC966C63626FC33A /* OTPBeyondBordersApp.swift in Sources */,
+				C4F48427BDB5F1AE65D54202 /* OTPWidgetContent.swift in Sources */,
 				BAB882773E2E7E10BC4EE2DE /* OnboardingComponents.swift in Sources */,
 				9E06C6C4BF58FCAF131FD3D5 /* OnboardingFlow.swift in Sources */,
 				2CCF7B39A76107369A571DDD /* RoleCarouselView.swift in Sources */,
 				1C65949F8ED0AED4F2BAE6E9 /* RoleChipDropdown.swift in Sources */,
 				7305389566CA852C65165420 /* SettingsView.swift in Sources */,
 				1A8FCBD6F8B268E38346C33E /* TimelineStripView.swift in Sources */,
+				3DD6186F294FD58E32163003 /* WidgetPreviewView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,6 +472,7 @@
 			files = (
 				92412D8C7BC315D2CC570673 /* OTPWidget.swift in Sources */,
 				97F5FE6F39E8B92E912D5EE8 /* OTPWidgetBundle.swift in Sources */,
+				8B7D1788EA46A692E1E8EC64 /* OTPWidgetContent.swift in Sources */,
 				C6DFC996557839BF8BC9D4B6 /* OTPWidgetEntryView.swift in Sources */,
 				54AD8C3A08E22C50B67F5FAA /* OTPWidgetProvider.swift in Sources */,
 			);

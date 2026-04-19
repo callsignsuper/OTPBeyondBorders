@@ -83,13 +83,42 @@ These need Apple-framework shims that aren't in v1-bootstrap:
 
 Track these as they come online.
 
-## 5. UI / widget snapshot tests (planned)
+## 5. UI / widget preview harness
 
-- Widget has only one family (`.accessoryRectangular`). Snapshot-test the entry view for: before reporting, mid-window (each owner color), T−5 (doors closed), post-STD/delay prompt. This is the cheapest way to catch a widget layout regression without deploying.
+### 5.1 In-app widget preview (implemented)
+
+The debug iOS app exposes a **Widget Preview** screen from the Flight list's top-right toolbar (rectangle-on-rectangle icon, DEBUG builds only). It renders `OTPRectangularContent` — the same SwiftUI view the lock-screen widget uses — against a mock lock-screen backdrop, at the widget's native rectangular size, and exposes a segmented picker to walk through four states:
+
+| State | What to verify |
+|---|---|
+| **In window** | Active countdown to the next milestone; progress bar tinted by the owner role. |
+| **T−5** | `00:30` countdown as Doors Closed approaches; progress bar nearly full; three owner-role colors showing. |
+| **Delay prompt** | Red "Log delay" text replaces the countdown when `now > STD` and `doors_closed` is not marked complete. |
+| **Placeholder** | Stable fallback content the widget shows while a timeline entry is being built. |
+
+Render metadata (family, phase, owner, deep-link URL) is shown below the widget so regressions in the engine's phase/owner resolution are catchable without running the app.
+
+This preview is the **fastest** feedback loop for widget layout and content decisions — no re-install, no lock-screen auth, no waiting on WidgetKit timeline refresh.
+
+### 5.2 Lock-screen customization (manual step)
+
+Putting the widget on an actual lock screen requires Face ID auth on the Simulator and the following flow:
+
+1. Lock the simulator (`Cmd+L`).
+2. Swipe up on the lock screen to trigger Face ID.
+3. Simulator → Features → Face ID → Matching Face (`Cmd+⌥+M`).
+4. **Before dismissing the lock screen**, long-press the clock area.
+5. Tap Customize → Lock Screen → add rectangular widget → OTP Beyond Borders → OTP Countdown.
+
+This flow is Face-ID-gated and unreliable via UI automation. Treat as a manual step in §6.5.
+
+### 5.3 Planned snapshot tests (not yet wired)
+
+- Widget: snapshot `OTPRectangularContent` in each of the four states above.
 - iOS flight-detail view: snapshot the timeline strip in each of four role tints.
 - Watch root view: snapshot at three pct-elapsed values (0.0 / 0.5 / 1.0).
 
-Suggested library: [pointfreeco/swift-snapshot-testing](https://github.com/pointfreeco/swift-snapshot-testing). Add after the v1 bootstrap commit.
+Suggested library: [pointfreeco/swift-snapshot-testing](https://github.com/pointfreeco/swift-snapshot-testing). The shared `OTPRectangularContent` view + `OTPWidgetSnapshot` data type make this trivial to adopt — one import and four assertions per family.
 
 ## 6. Manual device QA checklist
 

@@ -5,6 +5,7 @@ struct FlightListView: View {
     @Environment(FlightStore.self) private var store
     @Environment(\.selectedRole) private var selectedRole
     @State private var isImporting = false
+    @State private var showingWidgetPreview = false
     @AppStorage("selectedRole") private var roleRaw = Role.pilots.rawValue
 
     var body: some View {
@@ -52,7 +53,21 @@ struct FlightListView: View {
                         }
                     }
                 }
+                #if DEBUG
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showingWidgetPreview = true
+                    } label: {
+                        Image(systemName: "rectangle.on.rectangle")
+                    }
+                }
+                #endif
             }
+            #if DEBUG
+            .sheet(isPresented: $showingWidgetPreview) {
+                WidgetPreviewView()
+            }
+            #endif
         }
     }
 

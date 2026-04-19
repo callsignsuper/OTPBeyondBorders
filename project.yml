@@ -32,6 +32,7 @@ targets:
     sources:
       - path: App/Sources
       - path: Shared
+      - path: Widget/Sources/OTPWidgetContent.swift
     resources:
       - App/Resources
     settings:
