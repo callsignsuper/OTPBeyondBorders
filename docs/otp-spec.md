@@ -2,7 +2,7 @@
 
 ## 1. Source document
 
-Etihad Airways "OTP — Together For A Purpose" Target Guide, Revision 0, July 2025. Three poster variants — A380, Wide Body (except A380), Narrow Body — each showing milestone targets as negative minutes before STD (Scheduled Time of Departure).
+An airline OTP ("On-Time Performance") target guide — three poster variants (A380, Wide Body excluding A380, Narrow Body) each showing turnaround milestone targets as negative minutes before STD (Scheduled Time of Departure). The timings bundled with the app are a seed; replace them with your operator's current revision before shipping.
 
 Every poster shows four horizontal swim lanes (ENGINEER, GROUND, CABIN, PILOTS) converging on a vertical dashed line labeled STD on the right. Milestones appear as numbered circles above and below the swim lanes, with colored outlines indicating the responsible role.
 
@@ -66,7 +66,7 @@ All values are minutes before STD. "Owner" = which swim lane primarily executes.
 ### 3.3 Narrow Body (A320, A321)
 
 - **Total OTP window**: not explicitly stated on poster; reporting time at T−70 implies ~1:10 window
-- **No US-CBP variant** (Etihad narrow body does not fly to the US)
+- **No US-CBP variant** (narrow body is typically not deployed on AUH–US routes)
 - **Sequence note**: Pre-flight checks complete at T−35, AFTER prel-loadsheet at T−40. This is the confirmed sequence for narrow body — visually the poster shows −35 before −40 along the horizontal axis, but the times are authoritative.
 
 | T−min | Milestone | Owner(s) |
@@ -164,7 +164,7 @@ Progress-bar fill color = current owner's role color (pilots=navy, cabin=gold, g
 
 1. Welcome + brand
 2. Role picker: Pilot / Cabin / Engineer / Ground (illustrated carousel — needs design)
-3. Calendar access request + explainer: "AIMS eCrew → Settings → Enable calendar export"
+3. Calendar access request + explainer: "Your rostering or crew-control app → Settings → Export to Calendar"
 4. Notification permission (silent default + explainer)
 5. Language choice (default = device language)
 6. Demo flight ("Tap to see how it works")

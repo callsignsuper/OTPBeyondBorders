@@ -8,7 +8,7 @@
   "notes": {
     "bus_briefing": "Remainder of briefing to be conducted in the bus",
     "sequence": "Pre-flight checks (T-35) complete AFTER prel-loadsheet (T-40) on narrow body. The poster draws -35 visually before -40 along the horizontal axis, but the numeric times are authoritative.",
-    "source": "Etihad OTP Target Guide, Revision 0, July 2025 — Narrow Body poster"
+    "source": "Airline OTP target guide — Narrow Body timeline. Review against your operator's current revision."
   },
   "milestones": [
     { "id": "cbc_briefing_completed",      "t_minus": 70, "owners": ["pilots", "cabin"],           "phase": "pre_aircraft" },

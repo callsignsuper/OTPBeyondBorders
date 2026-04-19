@@ -13,7 +13,7 @@ Verdict summary: **broadly compliant**. Two minor violations flagged for follow-
 | Type | Responsibility |
 |---|---|
 | [CountdownEngine](../OTPKit/Sources/OTPKit/Engine/CountdownEngine.swift) | Compute countdown state from flight + timeline + clock. |
-| [AIMSNotesParser](../OTPKit/Sources/OTPKit/Parsing/AIMSNotesParser.swift) | Parse AIMS eCrew note bodies into a typed result. |
+| [RosterNoteParser](../OTPKit/Sources/OTPKit/Parsing/RosterNoteParser.swift) | Parse roster-app note bodies into a typed result. |
 | [TimelineLoader](../OTPKit/Sources/OTPKit/Loading/TimelineLoader.swift) | Decode a JSON timeline from a bundle. |
 | [CBPResolver](../OTPKit/Sources/OTPKit/Resolvers/CBPResolver.swift) | Decide if a destination triggers CBP today. |
 | [AircraftResolver](../OTPKit/Sources/OTPKit/Resolvers/AircraftResolver.swift) | Resolve a flight number to an aircraft category. |
@@ -21,7 +21,7 @@ Verdict summary: **broadly compliant**. Two minor violations flagged for follow-
 
 On the app side:
 
-- [CalendarImporter](../App/Sources/Calendar/CalendarImporter.swift) composes EventKit + `AIMSNotesParser` + `AircraftResolver` — that's a legitimate use-case orchestration, not a responsibility violation.
+- [CalendarImporter](../App/Sources/Calendar/CalendarImporter.swift) composes EventKit + `RosterNoteParser` + `AircraftResolver` — that's a legitimate use-case orchestration, not a responsibility violation.
 - [FlightStore](../App/Sources/Store/FlightStore.swift) manages in-memory flight state and delay logs. For v1 with no persistence, fine. When SwiftData lands, split into `FlightRepository` (persistence) + `FlightListViewModel` (UI state).
 
 ### Violations noted
@@ -33,7 +33,7 @@ On the app side:
 **Compliant for the dimensions that actually matter.** The extension surfaces are:
 
 - **Adding a new aircraft category** requires editing the [AircraftCategory enum](../OTPKit/Sources/OTPKit/Models/AircraftCategory.swift), adding a JSON file, and mapping a case in `resourceBasename`. That's three edits, but they're all at the boundary and each one is independently reviewable. Acceptable.
-- **Adding a new role** requires editing [Role.swift](../OTPKit/Sources/OTPKit/Models/Role.swift) and updating the Etihad JSON owners. The timeline JSONs are the source of truth for which roles exist per milestone — engine and UI consume this data without caring which roles exist. ✓
+- **Adding a new role** requires editing [Role.swift](../OTPKit/Sources/OTPKit/Models/Role.swift) and updating the timeline JSONs' `owners` arrays. The timeline JSONs are the source of truth for which roles exist per milestone — engine and UI consume this data without caring which roles exist. ✓
 - **Adding a new CBP airport** is JSON-only. ✓
 - **Adding a new IATA delay code** is JSON-only. ✓
 - **Changing a milestone's time** is JSON-only. ✓
@@ -56,7 +56,7 @@ One mild note: [FlightStore](../App/Sources/Store/FlightStore.swift) exposes `fl
 
 **Mostly compliant.**
 
-- `CountdownEngine` and `AIMSNotesParser` take pure inputs — no globals, no hidden Bundle access. ✓
+- `CountdownEngine` and `RosterNoteParser` take pure inputs — no globals, no hidden Bundle access. ✓
 - Loaders accept an injectable `Bundle` via `init(bundle:)` for tests. ✓
 - `CBPResolver` and `AircraftResolver` accept prebuilt data via `init(airports:)` / `init(fleetMap:)` for testing. ✓
 - `SystemClock` / `FixedClock` invert clock access. ✓

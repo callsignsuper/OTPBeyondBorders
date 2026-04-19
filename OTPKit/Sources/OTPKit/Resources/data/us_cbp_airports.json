@@ -1,6 +1,6 @@
 {
   "last_updated": "2026-04-19",
-  "source": "Etihad route network, April 2026. Sources: etihad.com/en/news (Charlotte launch announcement 4 May 2026); Wikipedia List of Etihad Airways destinations; Simple Flying coverage of 2026 expansion.",
+  "source": "US airports offering CBP preclearance for AUH-originating flights, April 2026. Maintained manually; re-verify when your airline's route network changes.",
   "rule": "If flight destination IATA is in `airports`, apply US-CBP adjustment: A380 adds +10 min, Wide Body adds +15 min, applied to CBC Briefing Completed and Bus Departs CBC milestones only. Narrow Body does not serve US destinations.",
   "airports": [
     { "iata": "JFK", "name": "New York John F. Kennedy",      "cbp_preclearance_at_auh": true },

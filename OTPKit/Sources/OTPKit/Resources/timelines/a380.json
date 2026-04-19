@@ -8,7 +8,7 @@
   "cbp_first_two_steps_offset_min": 10,
   "notes": {
     "bus_briefing": "Remainder of briefing to be conducted in the bus",
-    "source": "Etihad OTP Target Guide, Revision 0, July 2025 — A380 poster"
+    "source": "Airline OTP target guide — A380 timeline. Review against your operator's current revision."
   },
   "milestones": [
     { "id": "cbc_briefing_completed",      "t_minus": 98, "cbp_t_minus": 108, "owners": ["pilots", "cabin"],           "phase": "pre_aircraft" },

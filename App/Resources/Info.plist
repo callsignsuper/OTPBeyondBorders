@@ -21,9 +21,9 @@
     <key>CFBundleVersion</key>
     <string>$(CURRENT_PROJECT_VERSION)</string>
     <key>NSCalendarsFullAccessUsageDescription</key>
-    <string>OTP Beyond Borders reads your AIMS eCrew flight events so it can count down to each turnaround milestone on your lock screen and watch.</string>
+    <string>OTP Beyond Borders reads flight events exported by your rostering or crew-control app so it can count down to each turnaround milestone on your lock screen and watch.</string>
     <key>NSCalendarsUsageDescription</key>
-    <string>OTP Beyond Borders reads your AIMS eCrew flight events so it can count down to each turnaround milestone on your lock screen and watch.</string>
+    <string>OTP Beyond Borders reads flight events exported by your rostering or crew-control app so it can count down to each turnaround milestone on your lock screen and watch.</string>
     <key>NSUserNotificationsUsageDescription</key>
     <string>We deliver a silent haptic at eATL and any milestone alerts you enable.</string>
     <key>UILaunchScreen</key>

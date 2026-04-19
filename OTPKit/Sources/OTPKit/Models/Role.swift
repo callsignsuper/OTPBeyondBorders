@@ -16,7 +16,7 @@ public enum Role: String, CaseIterable, Sendable, Codable, Hashable {
         }
     }
 
-    /// Plural swim-lane label as it appears on the Etihad OTP poster.
+    /// Plural swim-lane label as it appears on the printed OTP poster.
     public var swimLaneLabel: String {
         switch self {
         case .pilots:   return "Pilots"

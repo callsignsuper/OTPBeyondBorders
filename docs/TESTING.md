@@ -52,20 +52,20 @@ These are **pure** — no EventKit, no WidgetKit, no simulator — so they run a
 
 | Test file | What it locks in |
 |---|---|
-| `TimelineLoaderTests` | All three bundled timeline JSONs decode; milestone counts, windows, and CBP offsets match the Etihad poster exactly; narrow-body T−35 comes after T−40 in wall-clock time. |
+| `TimelineLoaderTests` | All three bundled timeline JSONs decode; milestone counts, windows, and CBP offsets match the source poster exactly; narrow-body T−35 comes after T−40 in wall-clock time. |
 | `CountdownEngineTests` | Status transitions (before-reporting → in-window → after-STD → departed); pct-elapsed math; next-milestone skips completed; owner-role surfacing; CBP shift on first two milestones only. |
-| `AIMSNotesParserTests` | Canonical sample from [aims-ecrew-calendar-parse.md](aims-ecrew-calendar-parse.md); missing-marker rejection; reporting > STD forces +1 day on STD; invalid time tokens rejected. |
+| `RosterNoteParserTests` | Canonical sample from [roster-calendar-parse.md](roster-calendar-parse.md); missing-marker rejection; reporting > STD forces +1 day on STD; invalid time tokens rejected. |
 | `CBPResolverTests` | JFK/ORD/BOS/IAD/ATL always CBP; CLT gated by `launch_date` (2026-05-04); YYZ/YYC never CBP; user override wins. |
 | `AircraftResolverTests` | Fleet-map hits; case-insensitive; unknown flights return nil; user override wins; `effective_from` gating on CLT routes. |
 | `DelayCodesTests` | 50+ IATA codes load; known codes resolve to expected names; unique codes. |
-| `ParseToFlightIntegrationTests` | End-to-end: AIMS notes → parse → AircraftResolver → Flight → CountdownEngine. Proves the data layer is wired together correctly. |
+| `ParseToFlightIntegrationTests` | End-to-end: roster notes → parse → AircraftResolver → Flight → CountdownEngine. Proves the data layer is wired together correctly. |
 
 ### When to add a test here
 
 - Anything provable from pure inputs (date, flight, timeline JSON) goes here, not above.
 - Any bug fix should reproduce with a failing test first, then turn green with the fix.
 
-### Adding a new timeline (if Etihad updates the poster)
+### Adding or updating a timeline (when your operator revises the poster)
 
 1. Add/edit the JSON in `OTPKit/Sources/OTPKit/Resources/timelines/`.
 2. Add a fixture test in `TimelineLoaderTests` asserting the new milestone count, windows, and CBP offsets.
@@ -111,7 +111,7 @@ The widget extension reads flight data from an App Group container, not from the
 - `FlightStore.flights.didSet` writes on every change; `CalendarImporter` additionally calls `WidgetCenter.shared.reloadAllTimelines()` after a refresh.
 - `OTPWidgetProvider` calls `SharedFlightStorage.nextFlight(now:)` to build each timeline entry — first future STD wins. Falls back to a stable demo snapshot if the store is empty.
 
-To exercise the full data path, use the debug "calendar.badge.plus" toolbar button on the Flight list. It writes an AIMS-tagged calendar event 2 h from now into the device's default calendar via `EKEventStore`, then triggers the importer and a widget timeline reload. Apple's built-in Calendar widget can be used as an independent verification that the event landed.
+To exercise the full data path, use the debug "calendar.badge.plus" toolbar button on the Flight list. It writes a roster-shaped calendar event 2 h from now into the device's default calendar via `EKEventStore`, then triggers the importer and a widget timeline reload. Apple's built-in Calendar widget can be used as an independent verification that the event landed.
 
 ### 5.3 Lock-screen and home-screen placement (manual)
 
@@ -143,8 +143,8 @@ This is the list that must pass before a TestFlight drop. Print it and tick it o
 - [ ] "Skip for now" in calendar pane still allows reaching Done.
 
 ### 6.2 Calendar import
-- [ ] AIMS-tagged event → flight appears in list within 5 s of tapping refresh.
-- [ ] Non-AIMS events are not imported.
+- [ ] Roster-tagged event → flight appears in list within 5 s of tapping refresh.
+- [ ] Untagged calendar events are not imported.
 - [ ] Editing the source event in Calendar and re-importing updates the flight (no duplicates).
 - [ ] Flight with destination JFK auto-toggles CBP badge on.
 - [ ] Flight with destination YYZ does not toggle CBP.
@@ -207,7 +207,7 @@ No credentials or signing secrets — use `CODE_SIGNING_ALLOWED=NO` throughout C
 
 These are deliberately not covered by automated tests in v1-bootstrap. They're tracked here so reviewers can weigh the risk consciously:
 
-- **Fleet map correctness** — `data/fleet_routes.json` is seed data and not guaranteed to match Etihad's operational schedule. The user-override chip is the safety net; audit periodically.
+- **Fleet map correctness** — `data/fleet_routes.json` is placeholder seed data and not guaranteed to match any operator's real schedule. The user-override chip is the safety net; replace the seed before shipping.
 - **Palette hex values** — `Palette.approximate` is sampled from the public poster PDF, not the brand-authoritative sRGB values.
 - **Role illustrations** — onboarding uses SF Symbols as placeholders. Replace before GA.
 - **CloudKit sync** — schema and conflict rules are not yet exercised by a test.

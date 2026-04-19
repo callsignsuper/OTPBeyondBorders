@@ -1,10 +1,10 @@
-# AIMS eCrew Calendar Event — Parse Contract
+# Roster Calendar Event — Parse Contract
 
 ## Source
 
-Etihad crew roster is distributed via the **AIMS eCrew** app. The app has an *Export to Calendar* function that writes flight events into the user's device calendar (on iOS typically via a Google Calendar account sync). Each flight sector is one event.
+Crew rostering or crew-control apps typically offer an *Export to Calendar* function that writes each flight sector into the user's device calendar (on iOS, usually via an account sync such as Google Calendar). The parser in this project targets one particular export format — described below — which is emitted by a widely-used rostering product. The literal source-marker string in the notes is the disambiguator; any other roster app that writes the same shape of notes + same marker will parse correctly.
 
-## Sample event (Apr 2026)
+## Sample event
 
 | Field | Value |
 |---|---|
@@ -12,7 +12,7 @@ Etihad crew roster is distributed via the **AIMS eCrew** app. The app has an *Ex
 | Location | `(2035Z-1415Z) AUH` |
 | Start (local, AUH UTC+4) | 00:35 Mon 20 Apr 2026 |
 | End (local, AUH UTC+4) | 18:15 Mon 20 Apr 2026 |
-| Calendar | `contactvinayak@gmail.com` |
+| Calendar | user's default |
 | Notes | (see below) |
 
 ### Notes body
@@ -65,28 +65,28 @@ If mismatch, surface a warning chip in the flight detail view and fall back to u
 
 - Request `EKEntityType.event` read access during onboarding (only).
 - **Filtering strategy**:
-  - First pass: scan events whose `notes` contains `--- Inserted by the AIMS eCrew app ---`.
+  - First pass: scan events whose `notes` contains the source marker string.
   - Optional refinement: allow the user to pick a specific calendar in settings if they have multiple accounts synced.
 - **Refresh triggers**:
   - On app foreground.
-  - On `EKEventStoreChangedNotification` (real-time when the user edits or imports roster).
+  - On `EKEventStoreChangedNotification` (real-time when the user edits or imports a roster).
   - On a silent push from CloudKit when another device has updated the user's flight list.
 
 ## Edge cases to handle
 
 - **Deadhead / positioning flights** may have a different sector-code letter suffix (e.g., `21P`). Treat identically; log aircraft as "positioning" if the sector code suffix signals it.
 - **Standby / reserve days** have their own event shape. Not supported in v1 — collect samples and handle in v1.x.
-- **Time zone changes mid-trip**: all times in notes are UTC, so no conversion error; widget display should show both UTC and AUH-local for mental-math convenience.
+- **Time zone changes mid-trip**: all times in notes are UTC, so no conversion error; widget display should show both UTC and origin-local for mental-math convenience.
 - **Multi-leg rotation**: each leg is its own event. The widget only shows the *next* leg whose STD is in the future.
 - **Event deleted/moved in calendar**: via `EKEventStoreChangedNotification`, re-parse the corresponding flight record and update or remove.
-- **Duplicate events**: if AIMS re-exports, the source marker is the same but the UID might differ. De-duplicate by `(flight_number, std_utc)`.
+- **Duplicate events**: if the roster re-exports, the source marker is the same but the UID might differ. De-duplicate by `(flight_number, std_utc)`.
 
 ## Future: richer metadata
 
-AIMS eCrew does NOT include aircraft type in the notes. Aircraft is determined by:
+The current roster export format does NOT include aircraft type in the notes. Aircraft is determined by:
 
 1. Bundled flight-number → aircraft static map (shipped as `data/fleet_routes.json`, maintained manually).
-2. Optional AeroDataBox API lookup on import (v1.1).
+2. Optional external API lookup on import (v1.1).
 3. User override chip in the UI (always wins).
 
-If Etihad ever updates AIMS to include aircraft in the notes, add a new capture group here.
+If the roster ever updates to include aircraft in the notes, add a new capture group here.

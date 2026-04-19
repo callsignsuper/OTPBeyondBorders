@@ -1,7 +1,7 @@
 import Foundation
 
 /// Role + surface colors for OTP Beyond Borders.
-/// Hex values are **approximate** pending sampling of the official Etihad poster PDF (CLAUDE.md §Palette).
+/// Hex values are **approximate** pending sampling of your operator's official poster PDF.
 /// Swap these before GA; call sites depend only on the keys, not the hex.
 public struct Palette: Sendable {
     public let creamBackground: RGB

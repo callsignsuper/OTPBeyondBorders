@@ -147,7 +147,7 @@ private struct EmptyFlightsHint: View {
         ContentUnavailableView(
             "No flights yet",
             systemImage: "calendar.badge.plus",
-            description: Text("Tap the refresh icon to import from AIMS eCrew via Calendar.")
+            description: Text("Tap the refresh icon to import from your rostering app via Calendar.")
         )
     }
 }

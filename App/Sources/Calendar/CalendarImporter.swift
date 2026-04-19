@@ -2,15 +2,19 @@ import Foundation
 import EventKit
 import OTPKit
 
-/// Thin EventKit wrapper. Scans calendar events for the AIMS source marker and converts matches into Flight values.
+/// Thin EventKit wrapper. Scans calendar events for the roster source marker and converts matches into Flight values.
 @MainActor
 final class CalendarImporter {
     private let store = EKEventStore()
-    private let parser = AIMSNotesParser()
+    private let parser = RosterNoteParser()
     private let aircraftResolver: AircraftResolver?
+    /// Optional airline IATA prefix (e.g. "AA", "BA"). Roster notes typically emit the bare numeric
+    /// flight number; fleet maps usually key on the prefixed form. Leave empty for carrier-agnostic use.
+    private let carrierPrefix: String
 
-    init() {
+    init(carrierPrefix: String = "") {
         self.aircraftResolver = try? AircraftResolver()
+        self.carrierPrefix = carrierPrefix
     }
 
     func requestAccess() async throws -> Bool {
@@ -28,19 +32,19 @@ final class CalendarImporter {
         var result: [Flight] = []
 
         for event in events {
-            guard let notes = event.notes, parser.hasAIMSMarker(notes) else { continue }
+            guard let notes = event.notes, parser.hasSourceMarker(notes) else { continue }
             guard let parsed = try? parser.parse(notes: notes, eventStart: event.startDate) else { continue }
-            let carrierFlight = "EY" + parsed.flightNumber
-            let dedupeKey = "\(carrierFlight)@\(parsed.stdUTC.timeIntervalSince1970)"
+            let displayFlight = carrierPrefix + parsed.flightNumber
+            let dedupeKey = "\(displayFlight)@\(parsed.stdUTC.timeIntervalSince1970)"
             guard !seen.contains(dedupeKey) else { continue }
             seen.insert(dedupeKey)
 
             let category = aircraftResolver?.resolve(
-                flightNumber: carrierFlight, on: parsed.stdUTC
+                flightNumber: displayFlight, on: parsed.stdUTC
             ) ?? .widebody
 
             result.append(Flight(
-                flightNumber:  carrierFlight,
+                flightNumber:  displayFlight,
                 sectorCode:    parsed.sectorCode,
                 origin:        parsed.origin,
                 destination:   parsed.destination,

@@ -1,8 +1,8 @@
 import XCTest
 @testable import OTPKit
 
-final class AIMSNotesParserTests: XCTestCase {
-    private let parser = AIMSNotesParser()
+final class RosterNoteParserTests: XCTestCase {
+    private let parser = RosterNoteParser()
 
     func test_canonicalSampleFromDocs_parsesCorrectly() throws {
         let notes = """
@@ -34,12 +34,12 @@ final class AIMSNotesParserTests: XCTestCase {
     func test_missingMarker_throws() {
         let notes = "21A\nReporting time : 2035\n21 - AUH (2220) - YYZ (1345+1)"
         XCTAssertThrowsError(try parser.parse(notes: notes, eventStart: Date())) { err in
-            XCTAssertEqual(err as? AIMSNotesParser.ParseError, .missingSourceMarker)
+            XCTAssertEqual(err as? RosterNoteParser.ParseError, .missingSourceMarker)
         }
     }
 
     func test_reportingAfterMidnightRollsSTDForward() throws {
-        // Realistic AIMS shape: STD is always written as bare HHMM on the origin-local day.
+        // Realistic roster shape: STD is written as bare HHMM on the origin-local day.
         // If that value lands earlier than reporting (i.e. next UTC day), the parser rolls STD forward.
         let notes = """
         99A
@@ -75,9 +75,9 @@ final class AIMSNotesParserTests: XCTestCase {
         XCTAssertGreaterThanOrEqual(r.stdUTC, r.reportingUTC)
     }
 
-    func test_hasAIMSMarker() {
-        XCTAssertTrue(parser.hasAIMSMarker("foo\n--- Inserted by the AIMS eCrew app ---\nbar"))
-        XCTAssertFalse(parser.hasAIMSMarker("random calendar event"))
+    func test_hasSourceMarker() {
+        XCTAssertTrue(parser.hasSourceMarker("foo\n--- Inserted by the AIMS eCrew app ---\nbar"))
+        XCTAssertFalse(parser.hasSourceMarker("random calendar event"))
     }
 
     func test_invalidTimeToken_throws() {

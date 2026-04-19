@@ -1,7 +1,7 @@
 import XCTest
 @testable import OTPKit
 
-/// End-to-end: AIMS notes → parse → AircraftResolver → Flight → CountdownEngine.
+/// End-to-end: roster notes → parse → AircraftResolver → Flight → CountdownEngine.
 final class ParseToFlightIntegrationTests: XCTestCase {
     func test_parseSampleNotesAndFeedEngine() throws {
         let notes = """
@@ -14,17 +14,16 @@ final class ParseToFlightIntegrationTests: XCTestCase {
         --- Inserted by the AIMS eCrew app ---
         """
         let eventStart = TestSupport.utc(2026, 4, 19, 20, 35)
-        let parsed = try AIMSNotesParser().parse(notes: notes, eventStart: eventStart)
+        let parsed = try RosterNoteParser().parse(notes: notes, eventStart: eventStart)
 
-        // Flight number from AIMS is bare "21"; the fleet map is keyed on carrier-prefixed codes.
-        // Production AircraftResolver is called with `EY` + parsed.flightNumber for Etihad events.
+        // Roster notes emit the bare numeric flight number; the seed fleet map is keyed on
+        // matching bare numbers. Users replace this seed with their own airline's data.
         let resolver = try AircraftResolver()
-        let carrierFlight = "EY" + parsed.flightNumber
-        let category = resolver.resolve(flightNumber: carrierFlight, on: parsed.stdUTC)
-        XCTAssertEqual(category, .a380, "EY21 must map to A380")
+        let category = resolver.resolve(flightNumber: parsed.flightNumber, on: parsed.stdUTC)
+        XCTAssertEqual(category, .a380, "Flight 21 must map to A380 in the seed fleet map")
 
         let flight = Flight(
-            flightNumber: carrierFlight,
+            flightNumber: parsed.flightNumber,
             sectorCode:   parsed.sectorCode,
             origin:       parsed.origin,
             destination:  parsed.destination,

@@ -1,8 +1,10 @@
 import Foundation
 
-/// Parses AIMS eCrew calendar-event note bodies.
-/// Contract: docs/aims-ecrew-calendar-parse.md
-public struct AIMSNotesParser: Sendable {
+/// Parses roster-app-inserted calendar event note bodies.
+/// Contract: docs/roster-calendar-parse.md
+public struct RosterNoteParser: Sendable {
+    /// Literal marker string the supported rostering export inserts at the end of the notes body.
+    /// The exact value must match the producer — don't localize it.
     public static let sourceMarker = "--- Inserted by the AIMS eCrew app ---"
 
     public struct Result: Sendable, Hashable {
@@ -19,14 +21,14 @@ public struct AIMSNotesParser: Sendable {
 
     public init() {}
 
-    public func hasAIMSMarker(_ notes: String) -> Bool {
+    public func hasSourceMarker(_ notes: String) -> Bool {
         notes.contains(Self.sourceMarker)
     }
 
-    /// Parses an AIMS eCrew note body anchored to the event's `startDate` (which is in device-local TZ).
+    /// Parses a roster-app note body anchored to the event's `startDate` (which is in device-local TZ).
     /// All HHMM tokens in the notes are UTC; `+1` suffix means "next calendar day".
     public func parse(notes: String, eventStart: Date) throws -> Result {
-        guard hasAIMSMarker(notes) else {
+        guard hasSourceMarker(notes) else {
             throw ParseError.missingSourceMarker
         }
 

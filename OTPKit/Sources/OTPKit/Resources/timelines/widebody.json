@@ -15,7 +15,7 @@
   },
   "notes": {
     "bus_briefing": "Remainder of briefing to be conducted in the bus",
-    "source": "Etihad OTP Target Guide, Revision 0, July 2025 — Wide Body (except A380) poster"
+    "source": "Airline OTP target guide — Wide Body (except A380) timeline. Review against your operator's current revision."
   },
   "milestones": [
     { "id": "cbc_briefing_completed",      "t_minus": 85, "cbp_t_minus": 100, "owners": ["pilots", "cabin"],           "phase": "pre_aircraft" },

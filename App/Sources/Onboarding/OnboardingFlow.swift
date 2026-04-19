@@ -91,7 +91,7 @@ private struct WelcomePane: View {
     var body: some View {
         OnboardingPane(
             title: "OTP Beyond Borders",
-            subtitle: "For the Etihad crew",
+            subtitle: "For airline crew",
             hero: {
                 HeroFrame(accent: Color.otpGold) {
                     ZStack {
@@ -136,7 +136,7 @@ private struct CalendarPermissionPane: View {
     var body: some View {
         OnboardingPane(
             title: "Connect your roster",
-            subtitle: "We read flight events exported by AIMS eCrew",
+            subtitle: "We read flight events exported by your rostering app",
             hero: {
                 HeroFrame(accent: Color.otpTeal) {
                     ZStack {
@@ -175,9 +175,9 @@ private struct CalendarPermissionPane: View {
             },
             bodyContent: {
                 VStack(alignment: .leading, spacing: 12) {
-                    StepRow(number: "1", text: "In AIMS eCrew, enable Settings → Export to Calendar.")
+                    StepRow(number: "1", text: "In your rostering or crew-control app, enable Settings → Export to Calendar.")
                     StepRow(number: "2", text: "Grant calendar access here so we can read those events.")
-                    StepRow(number: "3", text: "We only import events tagged by AIMS — nothing else.")
+                    StepRow(number: "3", text: "We only import events tagged by your rostering app — nothing else.")
                 }
             },
             footer: {

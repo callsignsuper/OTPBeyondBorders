@@ -3,9 +3,9 @@ import Foundation
 import EventKit
 import OTPKit
 
-/// Writes an AIMS-eCrew-shaped calendar event into the device's default calendar so the
-/// full import pipeline (EventKit → AIMSNotesParser → AircraftResolver → Flight → widget)
-/// can be exercised in the simulator without waiting on a real AIMS export.
+/// Writes a roster-app-shaped calendar event into the device's default calendar so the
+/// full import pipeline (EventKit → RosterNoteParser → AircraftResolver → Flight → widget)
+/// can be exercised in the simulator without waiting on a real roster export.
 @MainActor
 struct CalendarSeeder {
     enum SeedError: Error { case noAccess, noDefaultCalendar, saveFailed(Error) }
@@ -57,7 +57,7 @@ struct CalendarSeeder {
             calendars: [calendar]
         )
         for existing in store.events(matching: predicate)
-        where existing.notes?.contains(AIMSNotesParser.sourceMarker) == true
+        where existing.notes?.contains(RosterNoteParser.sourceMarker) == true
             && existing.title == "\(sectorCode) \(origin)-\(destination)" {
             try? store.remove(existing, span: .thisEvent)
         }

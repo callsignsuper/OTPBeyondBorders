@@ -13,7 +13,7 @@ struct OTPWidget: Widget {
                 }
         }
         .configurationDisplayName("OTP Countdown")
-        .description("Next OTP milestone for your upcoming Etihad flight.")
+        .description("Next OTP milestone for your upcoming flight.")
         .supportedFamilies([
             .accessoryRectangular,  // lock screen
             .systemSmall,           // home screen 2×2
