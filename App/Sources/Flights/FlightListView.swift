@@ -126,8 +126,11 @@ private struct FlightRow: View {
     var body: some View {
         HStack(spacing: 12) {
             VStack(alignment: .leading, spacing: 4) {
-                Text("\(flight.flightNumber)  \(flight.origin) → \(flight.destination)")
-                    .font(.headline)
+                HStack(spacing: 6) {
+                    Text(flight.flightNumber).bold()
+                    RouteLabel(origin: flight.origin, destination: flight.destination,
+                               font: .headline)
+                }
                 Text(flight.stdUTC.formatted(date: .abbreviated, time: .shortened))
                     .font(.caption)
                     .foregroundStyle(.secondary)

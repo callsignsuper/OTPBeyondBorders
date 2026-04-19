@@ -43,8 +43,8 @@ struct FlightDetailView: View {
 
     private var header: some View {
         HStack(alignment: .firstTextBaseline) {
-            Text("\(flight.origin) → \(flight.destination)")
-                .font(.title2).bold()
+            RouteLabel(origin: flight.origin, destination: flight.destination,
+                       font: .title2.weight(.bold))
             Spacer()
             Text(flight.category.shortLabel)
                 .font(.caption.bold())

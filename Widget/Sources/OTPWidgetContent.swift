@@ -5,7 +5,8 @@ import OTPKit
 /// Shared between the widget extension (via TimelineEntry) and the iOS app (via a debug preview).
 public struct OTPWidgetSnapshot: Sendable, Hashable {
     public let flightNumber: String
-    public let routeLabel: String
+    public let origin: String
+    public let destination: String
     public let aircraftLabel: String
     public let phaseName: String
     public let countdownText: String
@@ -14,13 +15,12 @@ public struct OTPWidgetSnapshot: Sendable, Hashable {
     public let ownerRoles: [Role]
     public let isDelayPrompt: Bool
 
-    public var flightHeader: String {
-        "\(flightNumber)  \(routeLabel)  \(aircraftLabel)"
-    }
+    public var routeLabel: String { "\(origin) → \(destination)" }
 
     public init(
         flightNumber: String,
-        routeLabel: String,
+        origin: String,
+        destination: String,
         aircraftLabel: String,
         phaseName: String,
         countdownText: String,
@@ -30,7 +30,8 @@ public struct OTPWidgetSnapshot: Sendable, Hashable {
         isDelayPrompt: Bool
     ) {
         self.flightNumber = flightNumber
-        self.routeLabel = routeLabel
+        self.origin = origin
+        self.destination = destination
         self.aircraftLabel = aircraftLabel
         self.phaseName = phaseName
         self.countdownText = countdownText
@@ -41,8 +42,9 @@ public struct OTPWidgetSnapshot: Sendable, Hashable {
     }
 
     public static let placeholder = OTPWidgetSnapshot(
-        flightNumber: "EY21",
-        routeLabel: "AUH → YYZ",
+        flightNumber: "21",
+        origin: "AUH",
+        destination: "YYZ",
         aircraftLabel: "A380",
         phaseName: "Pre-Flight Checks",
         countdownText: "12:34",
@@ -83,7 +85,8 @@ public struct OTPWidgetSnapshot: Sendable, Hashable {
 
         return OTPWidgetSnapshot(
             flightNumber: flight.flightNumber,
-            routeLabel: "\(flight.origin) → \(flight.destination)",
+            origin: flight.origin,
+            destination: flight.destination,
             aircraftLabel: flight.category.shortLabel,
             phaseName: state.currentPhase?.displayName ?? "—",
             countdownText: countdown,
@@ -92,6 +95,32 @@ public struct OTPWidgetSnapshot: Sendable, Hashable {
             ownerRoles: state.ownerRoles,
             isDelayPrompt: state.status == .afterStdUndeparted
         )
+    }
+}
+
+/// Direction-aware route header: `ORIGIN → DEST` in LTR, automatically mirrored in RTL via
+/// the `arrow.forward` SF Symbol (renders as ← in Arabic/Hebrew layouts).
+public struct RouteLabel: View {
+    let origin: String
+    let destination: String
+    var font: Font = .caption2.monospacedDigit()
+    var symbolWeight: Font.Weight = .semibold
+
+    public init(origin: String, destination: String, font: Font = .caption2.monospacedDigit(), symbolWeight: Font.Weight = .semibold) {
+        self.origin = origin
+        self.destination = destination
+        self.font = font
+        self.symbolWeight = symbolWeight
+    }
+
+    public var body: some View {
+        HStack(spacing: 4) {
+            Text(origin)
+            Image(systemName: "arrow.forward")
+                .font(font.weight(symbolWeight))
+            Text(destination)
+        }
+        .font(font)
     }
 }
 
@@ -106,9 +135,15 @@ public struct OTPRectangularContent: View {
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(snapshot.flightHeader)
-                .font(.caption2.monospacedDigit())
-                .lineLimit(1)
+            HStack(spacing: 6) {
+                Text(snapshot.flightNumber)
+                    .font(.caption2.monospacedDigit().weight(.semibold))
+                RouteLabel(origin: snapshot.origin, destination: snapshot.destination)
+                Text(snapshot.aircraftLabel)
+                    .font(.caption2.monospacedDigit())
+                    .foregroundStyle(.secondary)
+            }
+            .lineLimit(1)
             Text(snapshot.phaseName)
                 .font(.caption2)
                 .foregroundStyle(.secondary)
@@ -149,8 +184,7 @@ public struct OTPSmallContent: View {
                 Text(snapshot.flightNumber)
                     .font(.caption.weight(.semibold))
                 Spacer()
-                Text(snapshot.routeLabel)
-                    .font(.caption2.monospacedDigit())
+                RouteLabel(origin: snapshot.origin, destination: snapshot.destination)
                     .foregroundStyle(.secondary)
             }
             Text(snapshot.phaseName.uppercased())
@@ -200,8 +234,8 @@ public struct OTPMediumContent: View {
             VStack(alignment: .leading, spacing: 6) {
                 Text(snapshot.flightNumber)
                     .font(.headline.weight(.bold))
-                Text(snapshot.routeLabel)
-                    .font(.caption.monospacedDigit())
+                RouteLabel(origin: snapshot.origin, destination: snapshot.destination,
+                           font: .caption.monospacedDigit())
                     .foregroundStyle(.secondary)
                 Spacer(minLength: 4)
                 Text(snapshot.phaseName.uppercased())

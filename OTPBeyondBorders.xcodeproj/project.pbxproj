@@ -10,6 +10,7 @@
 		16F88AD6D7561E40F6888585 /* OTPWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E416B0517F00F91B05F0CC4F /* OTPWatchApp.swift */; };
 		1A8FCBD6F8B268E38346C33E /* TimelineStripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84440E60C71BE1F07D7A3BB5 /* TimelineStripView.swift */; };
 		1C65949F8ED0AED4F2BAE6E9 /* RoleChipDropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8FE4DA4A8C4C9870A4FC73 /* RoleChipDropdown.swift */; };
+		1D02FF5E7E44278990AF6AA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48B9F6E97FD4F3C3DF47ACB3 /* Assets.xcassets */; };
 		1DF1A75D096655746A60FEB8 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D8E9BDBB51DB45CAE92FA63A /* Localizable.xcstrings */; };
 		2C7D2F1BCC594861EB4E7B39 /* FlightStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6725084A46BAE214B86AFCB /* FlightStore.swift */; };
 		2CCF7B39A76107369A571DDD /* RoleCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A74873D573AA15BAFB3ED20 /* RoleCarouselView.swift */; };
@@ -74,6 +75,7 @@
 		3E67676AC54C2EE3D4168618 /* OTPWidgetContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPWidgetContent.swift; sourceTree = "<group>"; };
 		42F3B5063541D3DA5C1FF637 /* CalendarImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarImporter.swift; sourceTree = "<group>"; };
 		4536B6DC7A053383BB85C288 /* FlightListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListView.swift; sourceTree = "<group>"; };
+		48B9F6E97FD4F3C3DF47ACB3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A35AB49F0DB1F0D33FFFBC7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5A74873D573AA15BAFB3ED20 /* RoleCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleCarouselView.swift; sourceTree = "<group>"; };
 		73CAD43A4D1E107FEF4E3C38 /* OTPWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = OTPWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,6 +169,7 @@
 		2294D90D9D064CF485D8CD7E /* App */ = {
 			isa = PBXGroup;
 			children = (
+				7FCD6FB29D4774AF797DA28F /* Resources */,
 				3E54E232B662A1BDBD7FB907 /* Sources */,
 			);
 			path = App;
@@ -229,6 +232,14 @@
 				830C30A3602F2D9451CE3593 /* LogDelaySheet.swift */,
 			);
 			path = Delay;
+			sourceTree = "<group>";
+		};
+		7FCD6FB29D4774AF797DA28F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				48B9F6E97FD4F3C3DF47ACB3 /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		970BDD4DB85A88D34446A93D /* Widget */ = {
@@ -433,6 +444,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D02FF5E7E44278990AF6AA1 /* Assets.xcassets in Resources */,
 				1DF1A75D096655746A60FEB8 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
