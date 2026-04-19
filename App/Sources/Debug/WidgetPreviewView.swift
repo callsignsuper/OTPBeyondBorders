@@ -120,7 +120,7 @@ struct WidgetPreviewView: View {
         let now = Date()
         switch selectedState {
         case .sharedStorage:
-            if let flight = SharedFlightStorage().nextFlight(now: now) {
+            if let flight = SharedFlightStorage().activeFlight(now: now) {
                 return .build(for: flight, at: now)
             }
             return .placeholder

@@ -225,11 +225,12 @@ private struct StepRow: View {
 
 private struct NotificationsPermissionPane: View {
     let advance: () -> Void
+    @State private var requesting = false
 
     var body: some View {
         OnboardingPane(
-            title: "Quietly helpful",
-            subtitle: "Silent by default",
+            title: "Wake up on time",
+            subtitle: "One alarm per flight, scheduled automatically",
             hero: {
                 HeroFrame(accent: Color.otpTerracotta) {
                     ZStack {
@@ -249,13 +250,26 @@ private struct NotificationsPermissionPane: View {
             },
             bodyContent: {
                 VStack(alignment: .leading, spacing: 10) {
-                    BulletRow(icon: "waveform", text: "One optional haptic at eATL (T−15).")
-                    BulletRow(icon: "bell.slash", text: "No sounds. Widgets update silently.")
-                    BulletRow(icon: "gearshape", text: "Turn on per-milestone alerts in Settings.")
+                    BulletRow(icon: "alarm", text: "90 min before home-base departures, 2 h before outstation departures. Both adjustable.")
+                    BulletRow(icon: "waveform", text: "Optional haptic at eATL (T−15).")
+                    BulletRow(icon: "bell.slash", text: "Respects Focus / Do Not Disturb. Widgets always update silently.")
                 }
             },
             footer: {
-                PrimaryCTA(title: "Continue", tint: Color.otpTerracotta, action: advance)
+                VStack(spacing: 8) {
+                    PrimaryCTA(
+                        title: requesting ? "Requesting…" : "Allow notifications",
+                        tint: Color.otpTerracotta
+                    ) {
+                        requesting = true
+                        Task {
+                            _ = await AlarmScheduler().requestAuthorization()
+                            requesting = false
+                            advance()
+                        }
+                    }
+                    SecondaryCTA(title: "Skip", action: advance)
+                }
             }
         )
     }

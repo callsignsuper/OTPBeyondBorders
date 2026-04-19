@@ -12,6 +12,9 @@ options:
 settings:
   base:
     SWIFT_VERSION: "6.0"
+    # Paste your 10-char Apple Developer Team ID below before archiving for TestFlight.
+    # Xcode → Signing & Capabilities → Team, OR developer.apple.com → Membership → Team ID.
+    # Leaving this blank means `xcodegen generate` will wipe any manual Team ID you set in Xcode.
     DEVELOPMENT_TEAM: ""
     CODE_SIGN_STYLE: Automatic
     ENABLE_USER_SCRIPT_SANDBOXING: YES
@@ -34,6 +37,8 @@ targets:
       - path: Shared
       - path: Widget/Sources/OTPWidgetContent.swift
       - path: App/Resources/Assets.xcassets
+      - path: App/Resources/PrivacyInfo.xcprivacy
+        buildPhase: resources
     resources:
       - App/Resources
     settings:
@@ -54,6 +59,8 @@ targets:
     platform: iOS
     sources:
       - Widget/Sources
+      - path: Widget/Resources/PrivacyInfo.xcprivacy
+        buildPhase: resources
     resources:
       - Widget/Resources
     settings:
@@ -73,6 +80,8 @@ targets:
     platform: watchOS
     sources:
       - Watch/Sources
+      - path: Watch/Resources/PrivacyInfo.xcprivacy
+        buildPhase: resources
     resources:
       - Watch/Resources
     settings:
@@ -81,6 +90,7 @@ targets:
         INFOPLIST_FILE: Watch/Resources/Info.plist
         GENERATE_INFOPLIST_FILE: NO
         TARGETED_DEVICE_FAMILY: "4"
+        CODE_SIGN_ENTITLEMENTS: Watch/Resources/OTPWatch.entitlements
     dependencies:
       - package: OTPKit
 

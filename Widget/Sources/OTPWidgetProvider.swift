@@ -4,47 +4,40 @@ import Foundation
 
 struct OTPWidgetEntry: TimelineEntry {
     let date: Date
-    let snapshot: OTPWidgetSnapshot
+    let snapshot: OTPWidgetSnapshot?
 }
 
 struct OTPWidgetProvider: TimelineProvider {
     private let storage = SharedFlightStorage()
 
+    /// Widget gallery + transient loading state: render the empty-state view. We deliberately
+    /// don't embed a fake sample flight here — users should never see a placeholder that looks
+    /// like a real flight number they might act on.
     func placeholder(in context: Context) -> OTPWidgetEntry {
-        OTPWidgetEntry(date: Date(), snapshot: .placeholder)
+        OTPWidgetEntry(date: Date(), snapshot: nil)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (OTPWidgetEntry) -> Void) {
-        completion(OTPWidgetEntry(date: Date(), snapshot: snapshot(at: Date())))
+        completion(OTPWidgetEntry(date: Date(), snapshot: currentSnapshot(at: Date())))
     }
 
     func getTimeline(in context: Context, completion: @escaping (WidgetKit.Timeline<OTPWidgetEntry>) -> Void) {
         let now = Date()
-        // One entry per minute for the next 90 minutes. Ample granularity; WidgetKit will request
-        // more when the window runs out.
+        // One entry per minute for the next 90 minutes. Ample granularity; WidgetKit will
+        // request more when the window runs out.
         let entries: [OTPWidgetEntry] = (0..<90).map { offset in
             let t = now.addingTimeInterval(Double(offset) * 60)
-            return OTPWidgetEntry(date: t, snapshot: snapshot(at: t))
+            return OTPWidgetEntry(date: t, snapshot: currentSnapshot(at: t))
         }
         completion(WidgetKit.Timeline(entries: entries, policy: .atEnd))
     }
 
-    /// Prefer the real next flight from the App Group store. Falls back to a stable demo snapshot
-    /// whenever no flight is available (first run, missing entitlement, etc.) so the widget always
-    /// has something legible to render.
-    private func snapshot(at date: Date) -> OTPWidgetSnapshot {
-        if let flight = storage.nextFlight(now: date) {
-            return OTPWidgetSnapshot.build(for: flight, at: date)
-        }
-        let demo = Flight(
-            flightNumber: "EY21",
-            sectorCode: "21A",
-            origin: "AUH",
-            destination: "YYZ",
-            reportingUTC: date.addingTimeInterval(-30 * 60),
-            stdUTC: date.addingTimeInterval(75 * 60),
-            category: .a380
-        )
-        return OTPWidgetSnapshot.build(for: demo, at: date)
+    /// Picks the first *active* flight from the App Group store. Active = STD in future OR
+    /// STD within the grace window and doors_closed not marked. Returns nil when the store
+    /// is empty or every flight is past the grace window — the widget view renders an empty
+    /// state rather than inventing a demo flight.
+    private func currentSnapshot(at date: Date) -> OTPWidgetSnapshot? {
+        guard let flight = storage.activeFlight(now: date) else { return nil }
+        return OTPWidgetSnapshot.build(for: flight, at: date)
     }
 }

@@ -32,12 +32,20 @@ public struct SharedFlightStorage: Sendable {
         return (try? decoder.decode([Flight].self, from: Data(contentsOf: url))) ?? []
     }
 
-    /// First flight whose STD is still in the future.
-    public func nextFlight(now: Date = Date()) -> Flight? {
+    /// First *active* flight — STD in future, or within `grace` seconds after STD with
+    /// doors_closed not marked. Past-grace flights are treated as departed so a crew member
+    /// on a turnaround rotation sees the next sector without having to open the app.
+    public func activeFlight(
+        now: Date = Date(),
+        grace: TimeInterval = 30 * 60
+    ) -> Flight? {
         read()
-            .filter { $0.stdUTC > now }
             .sorted { $0.stdUTC < $1.stdUTC }
-            .first
+            .first { flight in
+                if flight.stdUTC > now { return true }
+                let overdue = now.timeIntervalSince(flight.stdUTC)
+                return overdue < grace && !flight.completedMilestones.contains("doors_closed")
+            }
     }
 
     private func fileURL() -> URL? {

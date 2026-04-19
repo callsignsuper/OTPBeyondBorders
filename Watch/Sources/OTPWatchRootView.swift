@@ -3,11 +3,13 @@ import OTPKit
 
 struct OTPWatchRootView: View {
     @State private var now = Date()
+    @State private var state: CountdownState?
+    private let storage = SharedFlightStorage()
     private let tick = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var body: some View {
         VStack(spacing: 8) {
-            if let state = demoState() {
+            if let state {
                 Text(state.currentPhase?.displayName ?? "—")
                     .font(.caption2)
                     .foregroundStyle(.secondary)
@@ -21,10 +23,39 @@ struct OTPWatchRootView: View {
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
             } else {
-                Text("No flight").font(.caption)
+                VStack(spacing: 4) {
+                    Image(systemName: "airplane.departure")
+                        .foregroundStyle(.secondary)
+                    Text("No active flight")
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                }
             }
         }
-        .onReceive(tick) { _ in now = Date() }
+        .onAppear(perform: refresh)
+        .onReceive(tick) { _ in
+            now = Date()
+            refresh()
+        }
+    }
+
+    /// Recomputes the countdown state from the shared flight storage. Same "active flight"
+    /// rule the widget and iOS app use — auto-advances past flights that are post-grace.
+    private func refresh() {
+        guard let flight = storage.activeFlight(now: now),
+              let timeline = try? TimelineLoader().load(flight.category) else {
+            state = nil
+            return
+        }
+        let isCBP = (try? CBPResolver().isUSCBP(
+            destinationIATA: flight.destination,
+            on: flight.stdUTC,
+            override: flight.isUSCBPOverride
+        )) ?? false
+        state = CountdownEngine().state(
+            flight: flight, timeline: timeline, isUSCBP: isCBP, now: now
+        )
     }
 
     private func countdown(from seconds: TimeInterval?) -> String {
@@ -32,17 +63,6 @@ struct OTPWatchRootView: View {
         let mins = Int(s) / 60
         let secs = Int(s) % 60
         return String(format: "%02d:%02d", max(mins, 0), max(secs, 0))
-    }
-
-    private func demoState() -> CountdownState? {
-        let flight = Flight(
-            flightNumber: "EY21", origin: "AUH", destination: "YYZ",
-            reportingUTC: now.addingTimeInterval(-30 * 60),
-            stdUTC:       now.addingTimeInterval(75 * 60),
-            category: .a380
-        )
-        guard let timeline = try? TimelineLoader().load(flight.category) else { return nil }
-        return CountdownEngine().state(flight: flight, timeline: timeline, isUSCBP: false, now: now)
     }
 }
 

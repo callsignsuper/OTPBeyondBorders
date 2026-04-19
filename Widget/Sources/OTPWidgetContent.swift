@@ -7,6 +7,8 @@ public struct OTPWidgetSnapshot: Sendable, Hashable {
     public let flightNumber: String
     public let origin: String
     public let destination: String
+    public let originCity: String?
+    public let destinationCity: String?
     public let aircraftLabel: String
     public let phaseName: String
     public let countdownText: String
@@ -14,6 +16,11 @@ public struct OTPWidgetSnapshot: Sendable, Hashable {
     public let nextMilestoneLabel: String
     public let ownerRoles: [Role]
     public let isDelayPrompt: Bool
+    /// STA in the destination's local time zone, pre-formatted (e.g. `"13:45"`). Nil if unknown.
+    public let destinationArrivalLocal: String?
+    public let destinationUTCOffset: String?
+    /// UTC "now" label at the snapshot instant, e.g. `"13:45 UTC"`. Always present.
+    public let utcNowLabel: String
 
     public var routeLabel: String { "\(origin) → \(destination)" }
 
@@ -21,17 +28,24 @@ public struct OTPWidgetSnapshot: Sendable, Hashable {
         flightNumber: String,
         origin: String,
         destination: String,
+        originCity: String? = nil,
+        destinationCity: String? = nil,
         aircraftLabel: String,
         phaseName: String,
         countdownText: String,
         progressPct: Double,
         nextMilestoneLabel: String,
         ownerRoles: [Role],
-        isDelayPrompt: Bool
+        isDelayPrompt: Bool,
+        destinationArrivalLocal: String? = nil,
+        destinationUTCOffset: String? = nil,
+        utcNowLabel: String
     ) {
         self.flightNumber = flightNumber
         self.origin = origin
         self.destination = destination
+        self.originCity = originCity
+        self.destinationCity = destinationCity
         self.aircraftLabel = aircraftLabel
         self.phaseName = phaseName
         self.countdownText = countdownText
@@ -39,19 +53,30 @@ public struct OTPWidgetSnapshot: Sendable, Hashable {
         self.nextMilestoneLabel = nextMilestoneLabel
         self.ownerRoles = ownerRoles
         self.isDelayPrompt = isDelayPrompt
+        self.destinationArrivalLocal = destinationArrivalLocal
+        self.destinationUTCOffset = destinationUTCOffset
+        self.utcNowLabel = utcNowLabel
     }
 
+    /// Neutral loading-state snapshot. Used only as a transient render while WidgetKit builds
+    /// a real timeline entry. Intentionally contains NO flight-number / route / city data so the
+    /// shipped Release binary never embeds a fake flight a user might mistake for their own.
     public static let placeholder = OTPWidgetSnapshot(
-        flightNumber: "21",
-        origin: "AUH",
-        destination: "YYZ",
-        aircraftLabel: "A380",
-        phaseName: "Pre-Flight Checks",
-        countdownText: "12:34",
-        progressPct: 0.42,
-        nextMilestoneLabel: "Prel-Loadsheet in 12m",
-        ownerRoles: [.pilots],
-        isDelayPrompt: false
+        flightNumber: "—",
+        origin: "—",
+        destination: "—",
+        originCity: nil,
+        destinationCity: nil,
+        aircraftLabel: "",
+        phaseName: "",
+        countdownText: "--:--",
+        progressPct: 0,
+        nextMilestoneLabel: "",
+        ownerRoles: [],
+        isDelayPrompt: false,
+        destinationArrivalLocal: nil,
+        destinationUTCOffset: nil,
+        utcNowLabel: ""
     )
 
     /// Build a snapshot by running the CountdownEngine for the given flight + `now`.
@@ -83,18 +108,40 @@ public struct OTPWidgetSnapshot: Sendable, Hashable {
             return "\(resolved.milestone.displayName) in \(mins)m"
         } ?? "Post-STD"
 
+        let directory = try? AirportDirectory()
+        let originCity = directory?.lookup(flight.origin)?.city
+        let destCity = directory?.lookup(flight.destination)?.city
+        let destOffset = directory?.utcOffsetLabel(for: flight.destination, at: flight.staUTC ?? now)
+        let destArrival: String? = {
+            guard let sta = flight.staUTC else { return nil }
+            return directory?.localTimeString(for: flight.destination, utc: sta)
+        }()
+
         return OTPWidgetSnapshot(
             flightNumber: flight.flightNumber,
             origin: flight.origin,
             destination: flight.destination,
+            originCity: originCity,
+            destinationCity: destCity,
             aircraftLabel: flight.category.shortLabel,
             phaseName: state.currentPhase?.displayName ?? "—",
             countdownText: countdown,
             progressPct: state.pctElapsed,
             nextMilestoneLabel: nextLabel,
             ownerRoles: state.ownerRoles,
-            isDelayPrompt: state.status == .afterStdUndeparted
+            isDelayPrompt: state.status == .afterStdUndeparted,
+            destinationArrivalLocal: destArrival,
+            destinationUTCOffset: destOffset,
+            utcNowLabel: utcNowLabel(for: now)
         )
+    }
+
+    private static func utcNowLabel(for date: Date) -> String {
+        let f = DateFormatter()
+        f.timeZone = TimeZone(identifier: "UTC")
+        f.locale = Locale(identifier: "en_US_POSIX")
+        f.dateFormat = "HH:mm"
+        return "\(f.string(from: date))Z"
     }
 }
 
@@ -256,8 +303,8 @@ public struct OTPMediumContent: View {
                 }
             }
 
-            // Right column: owner chips + next milestone.
-            VStack(alignment: .leading, spacing: 8) {
+            // Right column: owner + arrival + progress.
+            VStack(alignment: .leading, spacing: 6) {
                 HStack(spacing: 6) {
                     ForEach(snapshot.ownerRoles, id: \.self) { role in
                         Circle()
@@ -268,10 +315,21 @@ public struct OTPMediumContent: View {
                             .foregroundStyle(colorFor(role))
                     }
                     Spacer()
+                    Text(snapshot.utcNowLabel)
+                        .font(.caption2.monospacedDigit())
+                        .foregroundStyle(.secondary)
                 }
                 Text(snapshot.nextMilestoneLabel)
                     .font(.subheadline.weight(.semibold))
                     .lineLimit(2)
+                if let arrival = snapshot.destinationArrivalLocal,
+                   let city = snapshot.destinationCity,
+                   let offset = snapshot.destinationUTCOffset {
+                    Text("Arr \(arrival) \(city) · \(offset)")
+                        .font(.caption2.monospacedDigit())
+                        .foregroundStyle(.secondary)
+                        .lineLimit(1)
+                }
                 Spacer(minLength: 0)
                 ProgressView(value: snapshot.progressPct)
                     .tint(ownerColor)

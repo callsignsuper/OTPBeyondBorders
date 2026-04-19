@@ -25,7 +25,9 @@
     <key>NSCalendarsUsageDescription</key>
     <string>OTP Beyond Borders reads flight events exported by your rostering or crew-control app so it can count down to each turnaround milestone on your lock screen and watch.</string>
     <key>NSUserNotificationsUsageDescription</key>
-    <string>We deliver a silent haptic at eATL and any milestone alerts you enable.</string>
+    <string>We schedule a wake-up alarm before each flight and a haptic reminder at eATL. You can disable either in Settings.</string>
+    <key>ITSAppUsesNonExemptEncryption</key>
+    <false/>
     <key>UILaunchScreen</key>
     <dict/>
     <key>UIRequiredDeviceCapabilities</key>
