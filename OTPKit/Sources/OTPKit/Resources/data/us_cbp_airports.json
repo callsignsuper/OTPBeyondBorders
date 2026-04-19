@@ -1,0 +1,17 @@
+{
+  "last_updated": "2026-04-19",
+  "source": "Etihad route network, April 2026. Sources: etihad.com/en/news (Charlotte launch announcement 4 May 2026); Wikipedia List of Etihad Airways destinations; Simple Flying coverage of 2026 expansion.",
+  "rule": "If flight destination IATA is in `airports`, apply US-CBP adjustment: A380 adds +10 min, Wide Body adds +15 min, applied to CBC Briefing Completed and Bus Departs CBC milestones only. Narrow Body does not serve US destinations.",
+  "airports": [
+    { "iata": "JFK", "name": "New York John F. Kennedy",      "cbp_preclearance_at_auh": true },
+    { "iata": "ORD", "name": "Chicago O'Hare",                "cbp_preclearance_at_auh": true },
+    { "iata": "BOS", "name": "Boston Logan",                  "cbp_preclearance_at_auh": true },
+    { "iata": "IAD", "name": "Washington Dulles",             "cbp_preclearance_at_auh": true },
+    { "iata": "ATL", "name": "Atlanta Hartsfield-Jackson",    "cbp_preclearance_at_auh": true },
+    { "iata": "CLT", "name": "Charlotte Douglas",             "cbp_preclearance_at_auh": true, "launch_date": "2026-05-04" }
+  ],
+  "non_cbp_north_america_reference": [
+    { "iata": "YYZ", "name": "Toronto Pearson",               "country": "Canada" },
+    { "iata": "YYC", "name": "Calgary International",         "country": "Canada", "launch_date": "2026" }
+  ]
+}

@@ -1,0 +1,759 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		16F88AD6D7561E40F6888585 /* OTPWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E416B0517F00F91B05F0CC4F /* OTPWatchApp.swift */; };
+		1A8FCBD6F8B268E38346C33E /* TimelineStripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84440E60C71BE1F07D7A3BB5 /* TimelineStripView.swift */; };
+		1C65949F8ED0AED4F2BAE6E9 /* RoleChipDropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8FE4DA4A8C4C9870A4FC73 /* RoleChipDropdown.swift */; };
+		1DF1A75D096655746A60FEB8 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D8E9BDBB51DB45CAE92FA63A /* Localizable.xcstrings */; };
+		2C7D2F1BCC594861EB4E7B39 /* FlightStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6725084A46BAE214B86AFCB /* FlightStore.swift */; };
+		2CCF7B39A76107369A571DDD /* RoleCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A74873D573AA15BAFB3ED20 /* RoleCarouselView.swift */; };
+		54AD8C3A08E22C50B67F5FAA /* OTPWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87847D364C1A048E9823D117 /* OTPWidgetProvider.swift */; };
+		61CB7318C54BDD736DAE023C /* LogDelaySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830C30A3602F2D9451CE3593 /* LogDelaySheet.swift */; };
+		66FA2DF898F65B25B0B16E74 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D490F7EB437B0E6471C223E4 /* AppTheme.swift */; };
+		6996B7F1E97130188A099C53 /* OTPKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7CFA0E3C53D5C315E97CFF9A /* OTPKit */; };
+		6A2C3CDA74911566A5CEEA9E /* FlightListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4536B6DC7A053383BB85C288 /* FlightListView.swift */; };
+		7305389566CA852C65165420 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A35AB49F0DB1F0D33FFFBC7 /* SettingsView.swift */; };
+		76045B6ABA9033D7359D6201 /* CalendarImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F3B5063541D3DA5C1FF637 /* CalendarImporter.swift */; };
+		7807C7DEF9193C466E99499B /* FlightDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7707BCD62F68670440A88D00 /* FlightDetailView.swift */; };
+		92412D8C7BC315D2CC570673 /* OTPWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35089C9DC30EB355E3C37E04 /* OTPWidget.swift */; };
+		93341A1FB00B467BDDD24CCD /* OTPKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3F8FA0285AD8F09652ABCCCC /* OTPKit */; };
+		97F5FE6F39E8B92E912D5EE8 /* OTPWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9DB29751E4BAF1BCE6921F /* OTPWidgetBundle.swift */; };
+		9E06C6C4BF58FCAF131FD3D5 /* OnboardingFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098EAF7FF5FFD383E6AB495B /* OnboardingFlow.swift */; };
+		A96F2C7E10705E69DB52E9F5 /* OTPWatchRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A519E193A75F49470D37411 /* OTPWatchRootView.swift */; };
+		B07BBB59AC966C63626FC33A /* OTPBeyondBordersApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086EEA176253E65507D20EF6 /* OTPBeyondBordersApp.swift */; };
+		B5D88B051B1910C03705725A /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74C5AA207058996D5D0D5BF5 /* SwiftUI.framework */; };
+		BC1802542AA7150BB2741698 /* OTPWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 73CAD43A4D1E107FEF4E3C38 /* OTPWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C38950729F36614BE310CA34 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A56C48FC7D05D35837BC5B8D /* WidgetKit.framework */; };
+		C6DFC996557839BF8BC9D4B6 /* OTPWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCBA927D93B2C01B5F9D36D /* OTPWidgetEntryView.swift */; };
+		D7AB939B206A7E6B4CB4236C /* OTPKit in Frameworks */ = {isa = PBXBuildFile; productRef = E4673C8F786935F0704B846A /* OTPKit */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1D6622B67DEBE09F6ECCF0A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B166558830796A5632F55729 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F08539E9E685CFCD305B65E4;
+			remoteInfo = OTPWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2C088AA242D6CD2B672D7AA1 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				BC1802542AA7150BB2741698 /* OTPWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		086EEA176253E65507D20EF6 /* OTPBeyondBordersApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPBeyondBordersApp.swift; sourceTree = "<group>"; };
+		098EAF7FF5FFD383E6AB495B /* OnboardingFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFlow.swift; sourceTree = "<group>"; };
+		0A8FE4DA4A8C4C9870A4FC73 /* RoleChipDropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleChipDropdown.swift; sourceTree = "<group>"; };
+		35089C9DC30EB355E3C37E04 /* OTPWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPWidget.swift; sourceTree = "<group>"; };
+		3A519E193A75F49470D37411 /* OTPWatchRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPWatchRootView.swift; sourceTree = "<group>"; };
+		42F3B5063541D3DA5C1FF637 /* CalendarImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarImporter.swift; sourceTree = "<group>"; };
+		4536B6DC7A053383BB85C288 /* FlightListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListView.swift; sourceTree = "<group>"; };
+		5A35AB49F0DB1F0D33FFFBC7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		5A74873D573AA15BAFB3ED20 /* RoleCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleCarouselView.swift; sourceTree = "<group>"; };
+		73CAD43A4D1E107FEF4E3C38 /* OTPWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = OTPWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		74C5AA207058996D5D0D5BF5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		7707BCD62F68670440A88D00 /* FlightDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailView.swift; sourceTree = "<group>"; };
+		830C30A3602F2D9451CE3593 /* LogDelaySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDelaySheet.swift; sourceTree = "<group>"; };
+		84440E60C71BE1F07D7A3BB5 /* TimelineStripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineStripView.swift; sourceTree = "<group>"; };
+		87847D364C1A048E9823D117 /* OTPWidgetProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPWidgetProvider.swift; sourceTree = "<group>"; };
+		A56C48FC7D05D35837BC5B8D /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		A76522724A23B061CC35F272 /* OTPBeyondBorders.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = OTPBeyondBorders.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA58A63A04454E4558F794E5 /* OTPWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OTPWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D490F7EB437B0E6471C223E4 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		D6725084A46BAE214B86AFCB /* FlightStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightStore.swift; sourceTree = "<group>"; };
+		D8E9BDBB51DB45CAE92FA63A /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		DFCBA927D93B2C01B5F9D36D /* OTPWidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPWidgetEntryView.swift; sourceTree = "<group>"; };
+		E416B0517F00F91B05F0CC4F /* OTPWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPWatchApp.swift; sourceTree = "<group>"; };
+		E49F4EE9829151050419AA13 /* OTPKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = OTPKit; path = OTPKit; sourceTree = SOURCE_ROOT; };
+		FB9DB29751E4BAF1BCE6921F /* OTPWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPWidgetBundle.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		070265C8CFDC49E12A35D18B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93341A1FB00B467BDDD24CCD /* OTPKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C3BA0DDBEB1712C1AECBA51 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7AB939B206A7E6B4CB4236C /* OTPKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECF6BCB8C7E791208CE1076E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6996B7F1E97130188A099C53 /* OTPKit in Frameworks */,
+				C38950729F36614BE310CA34 /* WidgetKit.framework in Frameworks */,
+				B5D88B051B1910C03705725A /* SwiftUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0AABA5BDC74682E0537324EC /* Flights */ = {
+			isa = PBXGroup;
+			children = (
+				7707BCD62F68670440A88D00 /* FlightDetailView.swift */,
+				4536B6DC7A053383BB85C288 /* FlightListView.swift */,
+				84440E60C71BE1F07D7A3BB5 /* TimelineStripView.swift */,
+			);
+			path = Flights;
+			sourceTree = "<group>";
+		};
+		126089148D528C1E5BFD5AC7 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				098EAF7FF5FFD383E6AB495B /* OnboardingFlow.swift */,
+				5A74873D573AA15BAFB3ED20 /* RoleCarouselView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		1994EFF878D66C8779A22D4C /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				E49F4EE9829151050419AA13 /* OTPKit */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		2294D90D9D064CF485D8CD7E /* App */ = {
+			isa = PBXGroup;
+			children = (
+				3E54E232B662A1BDBD7FB907 /* Sources */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		3E54E232B662A1BDBD7FB907 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				D43C9A2C26066D78B3023E27 /* Calendar */,
+				7B3BCFBCF3CE23BE16A12359 /* Delay */,
+				0AABA5BDC74682E0537324EC /* Flights */,
+				126089148D528C1E5BFD5AC7 /* Onboarding */,
+				C5944E7C0F0A4D7CB470553B /* Role */,
+				474C47B09C40AFFB43F6F5D9 /* Settings */,
+				AA470CD4194636A4994AF4C0 /* Store */,
+				A1D52FC57EDE7B8577CF8088 /* Theme */,
+				086EEA176253E65507D20EF6 /* OTPBeyondBordersApp.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		474C47B09C40AFFB43F6F5D9 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				5A35AB49F0DB1F0D33FFFBC7 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		5ADD1B5FE41F14B3B6AD52B1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A76522724A23B061CC35F272 /* OTPBeyondBorders.app */,
+				AA58A63A04454E4558F794E5 /* OTPWatch.app */,
+				73CAD43A4D1E107FEF4E3C38 /* OTPWidget.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6038B094CDDC195373A905B4 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				D8E9BDBB51DB45CAE92FA63A /* Localizable.xcstrings */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		679850CBA867197B816512A5 /* Watch */ = {
+			isa = PBXGroup;
+			children = (
+				B73644B7EB4F036C291D3E9B /* Sources */,
+			);
+			path = Watch;
+			sourceTree = "<group>";
+		};
+		7B3BCFBCF3CE23BE16A12359 /* Delay */ = {
+			isa = PBXGroup;
+			children = (
+				830C30A3602F2D9451CE3593 /* LogDelaySheet.swift */,
+			);
+			path = Delay;
+			sourceTree = "<group>";
+		};
+		970BDD4DB85A88D34446A93D /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				C5D161C2CE6EBEA434C11F5B /* Sources */,
+			);
+			path = Widget;
+			sourceTree = "<group>";
+		};
+		A1D52FC57EDE7B8577CF8088 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				D490F7EB437B0E6471C223E4 /* AppTheme.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		AA470CD4194636A4994AF4C0 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				D6725084A46BAE214B86AFCB /* FlightStore.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		AFD4819905D6B782CFC156F6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				74C5AA207058996D5D0D5BF5 /* SwiftUI.framework */,
+				A56C48FC7D05D35837BC5B8D /* WidgetKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B73644B7EB4F036C291D3E9B /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				E416B0517F00F91B05F0CC4F /* OTPWatchApp.swift */,
+				3A519E193A75F49470D37411 /* OTPWatchRootView.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		C5944E7C0F0A4D7CB470553B /* Role */ = {
+			isa = PBXGroup;
+			children = (
+				0A8FE4DA4A8C4C9870A4FC73 /* RoleChipDropdown.swift */,
+			);
+			path = Role;
+			sourceTree = "<group>";
+		};
+		C5D161C2CE6EBEA434C11F5B /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				35089C9DC30EB355E3C37E04 /* OTPWidget.swift */,
+				FB9DB29751E4BAF1BCE6921F /* OTPWidgetBundle.swift */,
+				DFCBA927D93B2C01B5F9D36D /* OTPWidgetEntryView.swift */,
+				87847D364C1A048E9823D117 /* OTPWidgetProvider.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		D43C9A2C26066D78B3023E27 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				42F3B5063541D3DA5C1FF637 /* CalendarImporter.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		E8B5A7F0FD3E4104E85AA81E = {
+			isa = PBXGroup;
+			children = (
+				2294D90D9D064CF485D8CD7E /* App */,
+				1994EFF878D66C8779A22D4C /* Packages */,
+				6038B094CDDC195373A905B4 /* Shared */,
+				679850CBA867197B816512A5 /* Watch */,
+				970BDD4DB85A88D34446A93D /* Widget */,
+				AFD4819905D6B782CFC156F6 /* Frameworks */,
+				5ADD1B5FE41F14B3B6AD52B1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		402282B5020C0747E4EE15AB /* OTPWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 71C6A18A690D54E41D30AA10 /* Build configuration list for PBXNativeTarget "OTPWatch" */;
+			buildPhases = (
+				900313E82A0D99424165DFAA /* Sources */,
+				070265C8CFDC49E12A35D18B /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OTPWatch;
+			packageProductDependencies = (
+				3F8FA0285AD8F09652ABCCCC /* OTPKit */,
+			);
+			productName = OTPWatch;
+			productReference = AA58A63A04454E4558F794E5 /* OTPWatch.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F08539E9E685CFCD305B65E4 /* OTPWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B35017A5EF10298A898E0F2F /* Build configuration list for PBXNativeTarget "OTPWidget" */;
+			buildPhases = (
+				ED16401A49BDCDDBA35E9E78 /* Sources */,
+				ECF6BCB8C7E791208CE1076E /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OTPWidget;
+			packageProductDependencies = (
+				7CFA0E3C53D5C315E97CFF9A /* OTPKit */,
+			);
+			productName = OTPWidget;
+			productReference = 73CAD43A4D1E107FEF4E3C38 /* OTPWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		FE5E0E9D333A8EFABFEE22E0 /* OTPBeyondBorders */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C0BCB916C8A9132D56AADFF /* Build configuration list for PBXNativeTarget "OTPBeyondBorders" */;
+			buildPhases = (
+				39CD75D7B1BFC21935B3DAEB /* Sources */,
+				177B7F2536967662891BD2D2 /* Resources */,
+				4C3BA0DDBEB1712C1AECBA51 /* Frameworks */,
+				2C088AA242D6CD2B672D7AA1 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C06A6704B976388B562897E6 /* PBXTargetDependency */,
+			);
+			name = OTPBeyondBorders;
+			packageProductDependencies = (
+				E4673C8F786935F0704B846A /* OTPKit */,
+			);
+			productName = OTPBeyondBorders;
+			productReference = A76522724A23B061CC35F272 /* OTPBeyondBorders.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B166558830796A5632F55729 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					402282B5020C0747E4EE15AB = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+					F08539E9E685CFCD305B65E4 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+					FE5E0E9D333A8EFABFEE22E0 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = E1B7661788F5452CA6884790 /* Build configuration list for PBXProject "OTPBeyondBorders" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				ar,
+				en,
+				it,
+				pt,
+				ru,
+			);
+			mainGroup = E8B5A7F0FD3E4104E85AA81E;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A32E3CE3FF7CEEAA80298C7B /* XCLocalSwiftPackageReference "OTPKit" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 5ADD1B5FE41F14B3B6AD52B1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FE5E0E9D333A8EFABFEE22E0 /* OTPBeyondBorders */,
+				402282B5020C0747E4EE15AB /* OTPWatch */,
+				F08539E9E685CFCD305B65E4 /* OTPWidget */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		177B7F2536967662891BD2D2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1DF1A75D096655746A60FEB8 /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		39CD75D7B1BFC21935B3DAEB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66FA2DF898F65B25B0B16E74 /* AppTheme.swift in Sources */,
+				76045B6ABA9033D7359D6201 /* CalendarImporter.swift in Sources */,
+				7807C7DEF9193C466E99499B /* FlightDetailView.swift in Sources */,
+				6A2C3CDA74911566A5CEEA9E /* FlightListView.swift in Sources */,
+				2C7D2F1BCC594861EB4E7B39 /* FlightStore.swift in Sources */,
+				61CB7318C54BDD736DAE023C /* LogDelaySheet.swift in Sources */,
+				B07BBB59AC966C63626FC33A /* OTPBeyondBordersApp.swift in Sources */,
+				9E06C6C4BF58FCAF131FD3D5 /* OnboardingFlow.swift in Sources */,
+				2CCF7B39A76107369A571DDD /* RoleCarouselView.swift in Sources */,
+				1C65949F8ED0AED4F2BAE6E9 /* RoleChipDropdown.swift in Sources */,
+				7305389566CA852C65165420 /* SettingsView.swift in Sources */,
+				1A8FCBD6F8B268E38346C33E /* TimelineStripView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		900313E82A0D99424165DFAA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				16F88AD6D7561E40F6888585 /* OTPWatchApp.swift in Sources */,
+				A96F2C7E10705E69DB52E9F5 /* OTPWatchRootView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ED16401A49BDCDDBA35E9E78 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92412D8C7BC315D2CC570673 /* OTPWidget.swift in Sources */,
+				97F5FE6F39E8B92E912D5EE8 /* OTPWidgetBundle.swift in Sources */,
+				C6DFC996557839BF8BC9D4B6 /* OTPWidgetEntryView.swift in Sources */,
+				54AD8C3A08E22C50B67F5FAA /* OTPWidgetProvider.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C06A6704B976388B562897E6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F08539E9E685CFCD305B65E4 /* OTPWidget */;
+			targetProxy = 1D6622B67DEBE09F6ECCF0A7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		13176E6CC13CC0D30C47E844 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 0.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		3D14C6BB9D25EB5A09833810 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = App/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.otpbb.ios;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		41DCEBD1B4C69AA475A7279A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Watch/Resources/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.otpbb.watch;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Release;
+		};
+		532EAEE8873C82EF9F0D2E02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Widget/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.otpbb.ios.widget;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		59BF2798D596CDFBFD0D87FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Widget/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.otpbb.ios.widget;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		628F40F8AAD47D085BC15D6D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = App/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.otpbb.ios;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		ACCF8A2534B69112B47E2F39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 0.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
+		FE9210F1E3BCB938D624DD7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Watch/Resources/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.otpbb.watch;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4C0BCB916C8A9132D56AADFF /* Build configuration list for PBXNativeTarget "OTPBeyondBorders" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D14C6BB9D25EB5A09833810 /* Debug */,
+				628F40F8AAD47D085BC15D6D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		71C6A18A690D54E41D30AA10 /* Build configuration list for PBXNativeTarget "OTPWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FE9210F1E3BCB938D624DD7C /* Debug */,
+				41DCEBD1B4C69AA475A7279A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B35017A5EF10298A898E0F2F /* Build configuration list for PBXNativeTarget "OTPWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				59BF2798D596CDFBFD0D87FB /* Debug */,
+				532EAEE8873C82EF9F0D2E02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E1B7661788F5452CA6884790 /* Build configuration list for PBXProject "OTPBeyondBorders" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13176E6CC13CC0D30C47E844 /* Debug */,
+				ACCF8A2534B69112B47E2F39 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		A32E3CE3FF7CEEAA80298C7B /* XCLocalSwiftPackageReference "OTPKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = OTPKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3F8FA0285AD8F09652ABCCCC /* OTPKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = OTPKit;
+		};
+		7CFA0E3C53D5C315E97CFF9A /* OTPKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = OTPKit;
+		};
+		E4673C8F786935F0704B846A /* OTPKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = OTPKit;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = B166558830796A5632F55729 /* Project object */;
+}

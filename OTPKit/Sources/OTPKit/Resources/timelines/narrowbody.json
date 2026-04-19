@@ -1,0 +1,27 @@
+{
+  "aircraft_category": "Narrow Body",
+  "aircraft_types": ["A320", "A321", "A20N", "A21N"],
+  "total_otp_window_min": {
+    "standard": 70
+  },
+  "us_cbp_applicable": false,
+  "notes": {
+    "bus_briefing": "Remainder of briefing to be conducted in the bus",
+    "sequence": "Pre-flight checks (T-35) complete AFTER prel-loadsheet (T-40) on narrow body. The poster draws -35 visually before -40 along the horizontal axis, but the numeric times are authoritative.",
+    "source": "Etihad OTP Target Guide, Revision 0, July 2025 — Narrow Body poster"
+  },
+  "milestones": [
+    { "id": "cbc_briefing_completed",      "t_minus": 70, "owners": ["pilots", "cabin"],           "phase": "pre_aircraft" },
+    { "id": "bus_departs_cbc",             "t_minus": 63, "owners": ["pilots", "cabin"],           "phase": "pre_aircraft" },
+    { "id": "ground_equipment_connected",  "t_minus": 60, "owners": ["ground"],                    "phase": "onboard_prep" },
+    { "id": "board_aircraft",              "t_minus": 48, "owners": ["pilots", "cabin"],           "phase": "onboard_prep" },
+    { "id": "prel_loadsheet_passed",       "t_minus": 40, "owners": ["pilots"],                    "phase": "boarding" },
+    { "id": "pre_flight_checks_completed", "t_minus": 35, "owners": ["pilots"],                    "phase": "onboard_prep" },
+    { "id": "auto_boarding_initiated",     "t_minus": 35, "owners": ["ground", "cabin"],           "phase": "boarding" },
+    { "id": "eatl_signed_briefing_done",   "t_minus": 15, "owners": ["pilots"],                    "phase": "close_out" },
+    { "id": "loadsheet_received",          "t_minus": 10, "owners": ["pilots"],                    "phase": "close_out" },
+    { "id": "gpu_acu_disconnected",        "t_minus": 10, "owners": ["ground"],                    "phase": "close_out" },
+    { "id": "doors_closed",                "t_minus": 5,  "owners": ["cabin", "pilots", "ground"], "phase": "departure" },
+    { "id": "tow_truck_connected",         "t_minus": 5,  "owners": ["ground"],                    "phase": "departure" }
+  ]
+}

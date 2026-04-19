@@ -1,0 +1,42 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "OTP Beyond Borders" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "OTP Beyond Borders" } },
+        "ar" : { "stringUnit" : { "state" : "new",        "value" : "OTP Beyond Borders" } },
+        "ru" : { "stringUnit" : { "state" : "new",        "value" : "OTP Beyond Borders" } },
+        "it" : { "stringUnit" : { "state" : "new",        "value" : "OTP Beyond Borders" } },
+        "pt" : { "stringUnit" : { "state" : "new",        "value" : "OTP Beyond Borders" } }
+      }
+    },
+    "Flights" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Flights" } },
+        "ar" : { "stringUnit" : { "state" : "new",        "value" : "الرحلات" } },
+        "ru" : { "stringUnit" : { "state" : "new",        "value" : "Рейсы" } },
+        "it" : { "stringUnit" : { "state" : "new",        "value" : "Voli" } },
+        "pt" : { "stringUnit" : { "state" : "new",        "value" : "Voos" } }
+      }
+    },
+    "Log delay" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Log delay" } },
+        "ar" : { "stringUnit" : { "state" : "new",        "value" : "تسجيل التأخير" } },
+        "ru" : { "stringUnit" : { "state" : "new",        "value" : "Записать задержку" } },
+        "it" : { "stringUnit" : { "state" : "new",        "value" : "Registra ritardo" } },
+        "pt" : { "stringUnit" : { "state" : "new",        "value" : "Registar atraso" } }
+      }
+    },
+    "Doors Closed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Doors Closed" } },
+        "ar" : { "stringUnit" : { "state" : "new",        "value" : "إغلاق الأبواب" } },
+        "ru" : { "stringUnit" : { "state" : "new",        "value" : "Двери закрыты" } },
+        "it" : { "stringUnit" : { "state" : "new",        "value" : "Porte chiuse" } },
+        "pt" : { "stringUnit" : { "state" : "new",        "value" : "Portas fechadas" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -1,0 +1,34 @@
+{
+  "aircraft_category": "Wide Body (except A380)",
+  "aircraft_types": ["A35K", "B77W", "B77L", "B788", "B789", "B78X"],
+  "total_otp_window_min": {
+    "standard": 90,
+    "us_cbp": 105
+  },
+  "cbp_first_two_steps_offset_min": 15,
+  "lrv": {
+    "comment": "LRV (Long Range Variation) does NOT change the OTP timeline. Both NON-LRV and LRV use the same 1:30 window. Captured here for data completeness only.",
+    "variations": {
+      "A": "One sector inside and one outside the prescriptive FTL scheme; Flight Duty Period up to 15 hours",
+      "B": "All sectors outside the prescriptive FTL scheme; Flight Duty Period up to 19 hours"
+    }
+  },
+  "notes": {
+    "bus_briefing": "Remainder of briefing to be conducted in the bus",
+    "source": "Etihad OTP Target Guide, Revision 0, July 2025 — Wide Body (except A380) poster"
+  },
+  "milestones": [
+    { "id": "cbc_briefing_completed",      "t_minus": 85, "cbp_t_minus": 100, "owners": ["pilots", "cabin"],           "phase": "pre_aircraft" },
+    { "id": "bus_departs_cbc",             "t_minus": 75, "cbp_t_minus": 90,  "owners": ["pilots", "cabin"],           "phase": "pre_aircraft" },
+    { "id": "ground_equipment_connected",  "t_minus": 60,                     "owners": ["ground"],                    "phase": "onboard_prep" },
+    { "id": "board_aircraft",              "t_minus": 60,                     "owners": ["pilots", "cabin"],           "phase": "onboard_prep" },
+    { "id": "pre_flight_checks_completed", "t_minus": 45,                     "owners": ["pilots"],                    "phase": "onboard_prep" },
+    { "id": "auto_boarding_initiated",     "t_minus": 45,                     "owners": ["ground", "cabin"],           "phase": "boarding" },
+    { "id": "prel_loadsheet_passed",       "t_minus": 40,                     "owners": ["pilots"],                    "phase": "boarding" },
+    { "id": "eatl_signed_briefing_done",   "t_minus": 15,                     "owners": ["pilots"],                    "phase": "close_out" },
+    { "id": "loadsheet_received",          "t_minus": 10,                     "owners": ["pilots"],                    "phase": "close_out" },
+    { "id": "gpu_acu_disconnected",        "t_minus": 10,                     "owners": ["ground"],                    "phase": "close_out" },
+    { "id": "doors_closed",                "t_minus": 5,                      "owners": ["cabin", "pilots", "ground"], "phase": "departure" },
+    { "id": "tow_truck_connected",         "t_minus": 5,                      "owners": ["ground"],                    "phase": "departure" }
+  ]
+}

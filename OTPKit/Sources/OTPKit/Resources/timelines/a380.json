@@ -1,0 +1,27 @@
+{
+  "aircraft_category": "A380",
+  "aircraft_types": ["A388"],
+  "total_otp_window_min": {
+    "standard": 105,
+    "us_cbp": 115
+  },
+  "cbp_first_two_steps_offset_min": 10,
+  "notes": {
+    "bus_briefing": "Remainder of briefing to be conducted in the bus",
+    "source": "Etihad OTP Target Guide, Revision 0, July 2025 — A380 poster"
+  },
+  "milestones": [
+    { "id": "cbc_briefing_completed",      "t_minus": 98, "cbp_t_minus": 108, "owners": ["pilots", "cabin"],           "phase": "pre_aircraft" },
+    { "id": "bus_departs_cbc",             "t_minus": 88, "cbp_t_minus": 98,  "owners": ["pilots", "cabin"],           "phase": "pre_aircraft" },
+    { "id": "board_aircraft",              "t_minus": 73,                     "owners": ["pilots", "cabin"],           "phase": "onboard_prep" },
+    { "id": "ground_equipment_connected",  "t_minus": 60,                     "owners": ["ground"],                    "phase": "onboard_prep" },
+    { "id": "pre_flight_checks_completed", "t_minus": 55,                     "owners": ["pilots"],                    "phase": "onboard_prep" },
+    { "id": "auto_boarding_initiated",     "t_minus": 45,                     "owners": ["ground", "cabin"],           "phase": "boarding" },
+    { "id": "prel_loadsheet_passed",       "t_minus": 40,                     "owners": ["pilots"],                    "phase": "boarding" },
+    { "id": "eatl_signed_briefing_done",   "t_minus": 15,                     "owners": ["pilots"],                    "phase": "close_out" },
+    { "id": "loadsheet_received",          "t_minus": 10,                     "owners": ["pilots"],                    "phase": "close_out" },
+    { "id": "gpu_acu_disconnected",        "t_minus": 10,                     "owners": ["ground"],                    "phase": "close_out" },
+    { "id": "doors_closed",                "t_minus": 5,                      "owners": ["cabin", "pilots", "ground"], "phase": "departure" },
+    { "id": "tow_truck_connected",         "t_minus": 5,                      "owners": ["ground"],                    "phase": "departure" }
+  ]
+}
